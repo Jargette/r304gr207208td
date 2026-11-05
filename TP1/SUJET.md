@@ -6,13 +6,13 @@ Durée : 3 heures. Public : FI et FA. Cette séance précède le premier cours.
 
 Dans ce TP, vous allez modifier deux petits programmes Java pour faciliter des changements précis. À la fin, vous devrez pouvoir expliquer quelle partie du programme a changé, quels clients ont été protégés et comment vous avez vérifié que le comportement attendu est conservé.
 
-Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune préparation avant la séance n’est nécessaire. Les sources sont dans le dépôt [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Le [guide de démarrage](../README.md) explique comment les ouvrir et lancer les tests. L’IA n’est pas utilisée pendant le TP.
+Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune préparation avant la séance n’est nécessaire. Les sources sont dans le dépôt [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Le [README](../README.md) explique comment les ouvrir et lancer les tests. L’IA n’est pas utilisée pendant le TP.
 
 ## Démarrage 15 minutes
 
-Clonez le dépôt en suivant le guide de démarrage. Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Ouvrez le premier et exécutez `piles.Main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
+Ouvrez le [README](../README.md) et suivez la rubrique « Récupérer les sources » pour cloner le dépôt. Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Ouvrez le premier et exécutez `piles.Main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
-Ne créez pas de fork. Consultez l’état du dépôt avec `git status`, puis enregistrez les étapes cohérentes de votre travail par des commits locaux. Il n’est pas demandé de pousser vos solutions sur GitHub. N’initialisez pas un second dépôt dans le dépôt cloné. Si vous utilisez une archive ZIP de secours, suivez la rubrique « Copie ZIP » du guide de démarrage pour créer votre historique local. Si l’installation ou la récupération bloque, demandez la copie locale prévue par l’enseignant et poursuivez l’exercice ; la logistique ne doit pas absorber la séance.
+Ne créez pas de fork. Consultez l’état du dépôt avec `git status`, puis enregistrez les étapes cohérentes de votre travail par des commits locaux. Il n’est pas demandé de pousser vos solutions sur GitHub. N’initialisez pas un second dépôt dans le dépôt cloné. Si vous utilisez une archive ZIP de secours, suivez la rubrique « Copie ZIP » du README pour créer votre historique local. Si l’installation ou la récupération bloque, demandez la copie locale prévue par l’enseignant et poursuivez l’exercice ; la logistique ne doit pas absorber la séance.
 
 Pour les tests, l’enseignant montre comment exécuter une méthode JUnit Jupiter. Un test prépare une situation, effectue une action et compare le résultat obtenu à un résultat attendu déterminé à l’avance. Dans `assertEquals(attendu, obtenu)`, l’attendu vient en premier.
 
