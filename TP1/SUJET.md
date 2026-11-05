@@ -12,23 +12,23 @@ Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune pr
 
 Sur un poste de l’IUT, créez votre dossier de travail dans votre espace personnel sur **Z:**. Clonez le dépôt dans ce dossier.
 
-1. Dans **IntelliJ IDEA**, choisissez **Get from VCS** (ou **Clone Repository**), collez `https://github.com/mikalziane/R304-2026-2027.git`. Dans **Directory**, choisissez un emplacement dans votre dossier de travail sur Z: à l’IUT, puis cliquez sur **Clone**. Si vous avez déjà cloné le dépôt, ouvrez votre copie.
-2. Dans la fenêtre **Project**, cherchez les dossiers `TP1/pile` et `TP1/refuge`. Si les dossiers n’apparaissent pas, ou si les triangles verts des tests manquent après le chargement, choisissez **File > Open**, puis sélectionnez le fichier `pom.xml` situé à la racine de `R304-2026-2027`. Si IntelliJ vous le propose, cliquez sur **Open as Project**. Ce fichier indique à IntelliJ où trouver les exercices et les bibliothèques de test. Attendez la fin du chargement.
+1. Dans **IntelliJ IDEA**, choisissez **Get from VCS** (ou **Clone Repository**), collez `https://github.com/mikalziane/R304-2026-2027.git`. Dans **Directory**, choisissez un emplacement dans votre dossier de travail sur Z: à l’IUT, puis cliquez sur **Clone**. Si vous avez déjà cloné le dépôt R304, réutilisez ce clone.
+2. Dans IntelliJ IDEA, choisissez **File > Open**. Dans le dépôt cloné, ouvrez le dossier `TP1` et sélectionnez son fichier `pom.xml` (`R304-2026-2027/TP1/pom.xml`). Si IntelliJ vous le propose, cliquez sur **Open as Project**. Ce fichier indique à IntelliJ où trouver les exercices et les bibliothèques de test. Attendez la fin du chargement. Vous devez voir les deux exercices `pile` et `refuge`. Vous devez voir les deux exercices `pile` et `refuge`.
 3. Dans **File > Project Structure > Project**, choisissez un **JDK 21** ou plus récent dans **SDK**.
-4. Dans `TP1/pile/src/test/java/piles/PileTest.java` puis `TP1/refuge/src/test/java/refuge/AnimauxTest.java`, cliquez sur le triangle vert à côté du nom de la classe. Au total, deux tests doivent réussir.
+4. Dans `pile/src/test/java/piles/PileTest.java` puis `refuge/src/test/java/refuge/AnimauxTest.java`, cliquez sur le triangle vert à côté du nom de la classe. Au total, deux tests doivent réussir.
 
-**Si IntelliJ IDEA n’est pas disponible**, ouvrez un terminal dans votre dossier de travail et utilisez les commandes suivantes. Si vous avez déjà les sources, ouvrez un terminal à leur racine et passez aux tests.
+**Si IntelliJ IDEA n’est pas disponible**, ouvrez un terminal dans votre dossier de travail et utilisez les commandes suivantes. Si vous avez déjà les sources, ouvrez un terminal dans leur dossier `TP1` et passez aux tests.
 
 ```text
 git clone https://github.com/mikalziane/R304-2026-2027.git
-cd R304-2026-2027
+cd R304-2026-2027/TP1
 ```
 
-À la racine du projet, lancez `.\mvnw.cmd test` sous PowerShell ou `sh ./mvnw test` sous macOS/Linux. Après les tests, vous pouvez lancer la pile avec `java -cp TP1/pile/target/classes piles.Main`.
+Depuis le dossier `TP1`, lancez `.\mvnw.cmd test` sous PowerShell ou `sh ./mvnw test` sous macOS/Linux. Après les tests, vous pouvez lancer la pile avec `java -cp pile/target/classes piles.Main`.
 
-Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Dans IntelliJ IDEA, ouvrez `piles.Main` et cliquez sur le triangle vert à côté de `main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
+Les deux exercices se trouvent dans les dossiers `pile` et `refuge` du projet ouvert. Dans IntelliJ IDEA, ouvrez `piles.Main` et cliquez sur le triangle vert à côté de `main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
-Dans IntelliJ IDEA, utilisez la fenêtre **Commit** pour examiner vos modifications et enregistrer des étapes cohérentes. Si IntelliJ IDEA n’est pas disponible, utilisez `git status`, `git add .` et `git commit` depuis la racine du projet. Vos commits restent locaux.
+Dans IntelliJ IDEA, utilisez la fenêtre **Commit** pour examiner vos modifications et enregistrer des étapes cohérentes. Si IntelliJ IDEA n’est pas disponible, utilisez `git status`, `git add .` et `git commit` depuis le dossier `TP1`. Git enregistre vos commits dans le dépôt R304, au niveau supérieur.
 
 ## Exercice 1 La pile 45 minutes
 
@@ -51,7 +51,7 @@ Une pile suit la règle « dernier entré, premier sorti ». La capacité de la 
 
 Le contrat précise le comportement visible : `getSommet()` consulte sans retirer, `depiler()` retire et retourne le dernier élément empilé, et la capacité maximale reste respectée.
 
-6. Ouvrez le fichier fourni `TP1/pile/src/test/java/piles/PileTest.java` (chemin depuis la racine du dépôt). Exécutez ce premier test :
+6. Ouvrez le fichier fourni `pile/src/test/java/piles/PileTest.java`. Exécutez ce premier test :
 
 ```java
 package piles;
@@ -136,7 +136,7 @@ Les noms d’espèces sont des identifiants convenus, identiques dans la configu
 ### Vérifier le changement 15 minutes
 
 11. Sans appeler `Main`, testez avec JUnit un refuge autorisant un seul chien : premier ajout accepté, second refusé, plus de place disponible pour cette espèce. Aucun clavier ne doit être requis.
-Créez le fichier `TP1/refuge/src/test/java/refuge/RefugeTest.java`. Vous pouvez partir de ce squelette ; les trois assertions sont à écrire :
+Créez le fichier `refuge/src/test/java/refuge/RefugeTest.java`. Vous pouvez partir de ce squelette ; les trois assertions sont à écrire :
 
 ```java
 package refuge;
