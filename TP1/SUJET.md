@@ -6,13 +6,24 @@ Durée : 3 heures. Public : FI et FA. Cette séance précède le premier cours.
 
 Dans ce TP, vous allez modifier deux petits programmes Java pour faciliter des changements précis. À la fin, vous devrez pouvoir expliquer quelle partie du programme a changé, quels clients ont été protégés et comment vous avez vérifié que le comportement attendu est conservé.
 
-Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune préparation avant la séance n’est nécessaire. Les sources sont dans le dépôt [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Le [README](../README.md) explique comment les ouvrir et lancer les tests. L’IA n’est pas utilisée pendant le TP.
+Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune préparation avant la séance n’est nécessaire. Les sources sont dans le dépôt [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). L’IA n’est pas utilisée pendant le TP.
 
 ## Démarrage 15 minutes
 
-Ouvrez le [README](../README.md) et suivez la rubrique « Récupérer les sources » pour cloner le dépôt. Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Ouvrez le premier et exécutez `piles.Main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
+Ouvrez un terminal dans votre dossier de travail et exécutez les deux commandes suivantes. Si vous avez déjà cloné le dépôt, ouvrez le dossier racine de votre copie et passez directement à la suite.
 
-Ne créez pas de fork. Consultez l’état du dépôt avec `git status`, puis enregistrez les étapes cohérentes de votre travail par des commits locaux. Il n’est pas demandé de pousser vos solutions sur GitHub. N’initialisez pas un second dépôt dans le dépôt cloné. Si vous utilisez une archive ZIP de secours, suivez la rubrique « Copie ZIP » du README pour créer votre historique local. Si l’installation ou la récupération bloque, demandez la copie locale prévue par l’enseignant et poursuivez l’exercice ; la logistique ne doit pas absorber la séance.
+```text
+git clone https://github.com/mikalziane/R304-2026-2027.git
+cd R304-2026-2027
+```
+
+Si vous utilisez une archive ZIP de secours, extrayez-la, puis ouvrez un terminal dans le dossier contenant `pom.xml`. Lancez `git init`, `git add .`, puis `git commit -m "Base de départ TP1"`. Si Git demande une identité, renseignez vos nom et adresse avec `git config user.name "Votre nom"` et `git config user.email "Votre adresse"`, puis relancez le commit.
+
+Dans votre IDE, ouvrez le `pom.xml` à la racine comme projet Maven et sélectionnez un JDK 21 ou plus récent. Dans un terminal à la racine, lancez `.\mvnw.cmd test` sous PowerShell ou `sh ./mvnw test` sous macOS/Linux. Au départ, deux tests doivent réussir. Le premier lancement peut nécessiter Internet.
+
+Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Ouvrez le premier et exécutez `piles.Main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
+
+Ne créez pas de fork. Consultez l’état du dépôt avec `git status`, puis enregistrez les étapes cohérentes de votre travail par des commits locaux. Il n’est pas demandé de pousser vos solutions sur GitHub. N’initialisez pas un second dépôt dans le dépôt cloné. Si l’installation ou la récupération bloque, demandez la copie locale prévue par l’enseignant et poursuivez l’exercice ; la logistique ne doit pas absorber la séance.
 
 Pour les tests, l’enseignant montre comment exécuter une méthode JUnit Jupiter. Un test prépare une situation, effectue une action et compare le résultat obtenu à un résultat attendu déterminé à l’avance. Dans `assertEquals(attendu, obtenu)`, l’attendu vient en premier.
 
