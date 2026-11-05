@@ -2,13 +2,55 @@
 
 R304 FI — 90 minutes — groupes de 3 à 5. Cette séance précède le premier cours. Aucune préparation préalable ni connaissance de Clean Architecture n’est supposée. Un portable par groupe suffit. Pas d’IA pendant le TD.
 
-## Objectif et travail attendu
+## Le projet KRK
 
-Vous disposez d’un moteur pour la finale roi et tour blancs contre roi noir (KRK). Vous allez lire une petite partie de son organisation, créer une simulation d’un de ses composants et écrire deux tests JUnit. Les règles et l’algorithme de choix du coup sont fournis : vous ne les réécrivez pas. Votre simulation sert à tester un cas précis ; elle ne remplace pas le véritable composant dans le programme utilisé pour jouer.
+Pendant les TD de R304, votre groupe fera évoluer un programme qui choisit des coups dans une finale d’échecs. Une finale est la dernière phase d’une partie, quand il reste peu de pièces. Dans la finale **KRK** (*King, Rook, King*), les blancs ont un roi et une tour, et les noirs ont un roi.
 
-À la fin : deux schémas simples, une classe OracleTerminal, deux tests dans TD1Test et un court bilan du groupe. Conservez-les dans votre dossier de travail, avec un commit local. Aucun rapport séparé ni push sur GitHub n’est demandé.
+Le programme fourni reçoit une position et propose un coup au camp qui doit jouer. Au fil du projet, vous apprendrez à modifier une partie de ce programme, à vérifier son comportement avec des tests et à enregistrer votre travail dans Git. L’objectif est de comprendre comment faire évoluer une partie du code sans devoir retoucher toutes les autres.
 
-## 0–15 minutes — Récupérer et démarrer
+## Comprendre la finale
+
+La tour avance en ligne droite, horizontalement ou verticalement, sans sauter par-dessus une pièce. Le roi avance d’une case dans n’importe quelle direction et ne peut pas aller sur une case attaquée. Les blancs cherchent à faire **mat** au roi noir. Il est mat s’il est attaqué et n’a aucun coup légal. S’il n’a aucun coup légal sans être attaqué, c’est un **pat** et la partie est nulle. Elle est aussi nulle si le roi noir prend la tour et qu’il ne reste que les deux rois.
+
+Voici la position utilisée dans le test du TD1. Les lettres repèrent les colonnes et les chiffres les lignes. Par exemple, b6 désigne la colonne b, ligne 6. RB représente le roi blanc, TB la tour blanche, RN le roi noir. Un point représente une case vide.
+
+**Avant le coup.** Les blancs doivent jouer.
+
+```text
+    a  b  c  d  e  f  g  h
+8  RN  .  .  .  .  .  .  .
+7   .  .  .  .  .  .  . TB
+6   . RB  .  .  .  .  .  .
+5   .  .  .  .  .  .  .  .
+4   .  .  .  .  .  .  .  .
+3   .  .  .  .  .  .  .  .
+2   .  .  .  .  .  .  .  .
+1   .  .  .  .  .  .  .  .
+```
+
+**Après le coup h7 → h8.** Les noirs doivent jouer.
+
+```text
+    a  b  c  d  e  f  g  h
+8  RN  .  .  .  .  .  . TB
+7   .  .  .  .  .  .  .  .
+6   . RB  .  .  .  .  .  .
+5   .  .  .  .  .  .  .  .
+4   .  .  .  .  .  .  .  .
+3   .  .  .  .  .  .  .  .
+2   .  .  .  .  .  .  .  .
+1   .  .  .  .  .  .  .  .
+```
+
+La tour blanche en h8 attaque le roi noir en a8. Depuis ce coin, les seules cases voisines du roi noir sont a7, b7 et b8. Le roi blanc contrôle a7 et b7, et la tour contrôle b8. Le roi noir est donc mat. Votre test vérifiera que le programme choisit ce coup.
+
+## Ce que vous faites au TD1
+
+Pour choisir un coup, le moteur recense les coups autorisés et demande à un composant d’évaluer les positions obtenues. Évaluer une position consiste ici à indiquer si le camp qui doit jouer peut gagner, perd ou fait nulle. Vous allez lire comment ces deux parties communiquent, puis écrire une petite simulation de l’évaluateur qui reconnaît le mat immédiat. Dans un test JUnit, cette simulation vous permet de vérifier le choix du moteur sans calculer la valeur de toutes les positions. Le moteur et les règles du jeu sont fournis.
+
+À la fin : deux schémas du programme, une classe OracleTerminal, deux tests dans TD1Test et un court bilan du groupe. Conservez-les dans votre dossier de travail, avec un commit local. Aucun rapport séparé ni push sur GitHub n’est demandé.
+
+## 0–15 minutes — Découvrir la finale et démarrer
 
 Le dépôt commun est [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Si vous ne l’avez pas, clonez-le dans votre dossier personnel :
 
@@ -44,13 +86,9 @@ git config user.email "Votre adresse personnelle"
 
 Désignez un pilote du clavier, un lecteur du code et un responsable des tests ; répartissez aussi les schémas si vous êtes quatre ou cinq. Changez de pilote vers le milieu de la séance.
 
-## Repères d’échecs utiles
+## Lire le résultat d’une évaluation
 
-KRK signifie roi blanc et tour blanche contre roi noir. Les colonnes de l’échiquier vont de a à h, les lignes de 1 à 8 ; b6 est la colonne b, ligne 6. Le « camp au trait » est celui qui doit jouer. Un roi en échec et sans aucun coup légal est mat : la partie est perdue pour ce camp.
-
-Dans notre exemple : roi blanc b6, tour blanche h7, roi noir a8, trait aux blancs. Le coup de tour h7 vers h8 donne mat. Ce fait est fourni, vous n’avez pas à démontrer les règles d’échecs.
-
-Une Evaluation indique WIN (gain), DRAW (nulle) ou LOSS (perte), du point de vue du camp au trait dans la position évaluée. Après un coup blanc, on évalue une position où les noirs doivent jouer : leur LOSS est favorable aux blancs. `loss(0)` signifie que ce camp est déjà mat.
+Une Evaluation indique WIN (gain), DRAW (nulle) ou LOSS (perte), du point de vue du camp qui doit jouer dans la position évaluée. Après un coup blanc, on évalue une position où les noirs doivent jouer : leur LOSS est favorable aux blancs. `loss(0)` signifie que ce camp est déjà mat.
 
 ## 15–35 minutes — Lire une frontière du programme
 
