@@ -4,7 +4,7 @@ R304 FI — 90 minutes — groupes de 3 à 5. Cette séance précède le premier
 
 ## Objectif et travail attendu
 
-Vous disposez d’un moteur d’échecs fonctionnel. Vous allez lire une petite partie de son organisation, créer une simulation d’un de ses composants et écrire deux tests JUnit. Les règles et l’algorithme de choix du coup sont fournis : vous ne les réécrivez pas. Votre simulation sert à tester un cas précis ; elle ne remplace pas le véritable composant dans le programme utilisé pour jouer.
+Vous disposez d’un moteur pour la finale roi et tour blancs contre roi noir (KRK). Vous allez lire une petite partie de son organisation, créer une simulation d’un de ses composants et écrire deux tests JUnit. Les règles et l’algorithme de choix du coup sont fournis : vous ne les réécrivez pas. Votre simulation sert à tester un cas précis ; elle ne remplace pas le véritable composant dans le programme utilisé pour jouer.
 
 À la fin : deux schémas simples, une classe OracleTerminal, deux tests dans TD1Test et un court bilan du groupe. Conservez-les dans votre dossier de travail, avec un commit local. Aucun rapport séparé ni push sur GitHub n’est demandé.
 

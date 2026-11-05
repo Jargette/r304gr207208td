@@ -102,6 +102,6 @@ Pas d’IA pendant les TP et TD. Hors séance : explications, critiques et idée
 
 ## TD1 — FI
 
-Lire le [sujet du TD1](TD1/SUJET.md). Le moteur fourni sert à étudier la frontière entre le choix d’un coup et sa source d’évaluation. JDK 21 minimum requis.
+Lire le [sujet du TD1](TD1/SUJET.md). Le moteur de finale roi et tour blancs contre roi noir (KRK) sert à étudier la frontière entre le choix d’un coup et sa source d’évaluation. JDK 21 minimum requis.
 
 Depuis la racine du dépôt, entrez dans `TD1`, puis lancez `.\mvnw.cmd test` sous Windows PowerShell ou `sh ./mvnw test` sous macOS/Linux. La base contient 33 tests. Ce projet Maven est autonome : les commandes lancées à la racine pour le TP1 ne lancent pas les tests du TD1.
