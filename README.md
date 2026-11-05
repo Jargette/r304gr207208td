@@ -10,7 +10,7 @@ Lire le [sujet Encapsulation et changements](TP1/SUJET.md). Deux projets : `TP1/
 
 ## Prérequis
 
-Un JDK 17 ou plus récent, Git pour le clonage et un IDE Java au choix. La base a été vérifiée avec le JDK 21 sous Windows ; elle compile au niveau Java 17. JUnit Jupiter 5.11.4 est déclaré dans Maven. Il n’est pas nécessaire de l’ajouter à la main.
+Un JDK 21 ou plus récent, Git pour le clonage et un IDE Java au choix. La base a été vérifiée avec le JDK 21 sous Windows ; elle compile au niveau Java 17. JUnit Jupiter 5.11.4 est déclaré dans Maven. Il n’est pas nécessaire de l’ajouter à la main.
 
 Le lanceur Maven est inclus. Sa première utilisation télécharge Maven 3.9.9 et les dépendances : une connexion Internet est nécessaire. Un téléchargement ZIP ne remplace pas ce premier téléchargement de dépendances. L’enseignant prévoit une copie locale si l’accès GitHub pose problème.
 
@@ -28,7 +28,7 @@ Vous pouvez aussi utiliser la fonction de clonage de votre IDE. Ne créez pas de
 
 ## Dans IntelliJ IDEA
 
-Ouvrez le `pom.xml` à la racine du dépôt comme projet Maven. Sélectionnez un JDK installé (17 minimum) comme SDK du projet et pour Maven. Laissez l’import Maven télécharger les dépendances. Les projets pile et refuge doivent apparaître séparément.
+Ouvrez le `pom.xml` à la racine du dépôt comme projet Maven. Sélectionnez un JDK installé (21 minimum) comme SDK du projet et pour Maven. Laissez l’import Maven télécharger les dépendances. Les projets pile et refuge doivent apparaître séparément.
 
 Lancez la méthode `main` de l’exercice depuis l’éditeur. Pour les tests, ouvrez `PileTest` ou `AnimauxTest` dans `src/test/java` et lancez le test depuis l’éditeur. Les autres IDE peuvent importer la même configuration Maven.
 
@@ -56,6 +56,25 @@ Le lanceur utilise `JAVA_HOME` s’il est défini ; ce chemin doit désigner un 
 Au départ, **deux tests doivent réussir**, un par exercice. Cela vérifie le démarrage et quelques comportements seulement. Cela ne signifie pas que les défauts de conception ont été corrigés. Le sujet vous demande d’enrichir les tests. Lors du déplacement de Chien et Chat, pensez aux imports du test.
 
 Pour ne tester que la pile : `.\mvnw.cmd -pl TP1/pile test` (ou `./mvnw -pl TP1/pile test`). Même principe avec `TP1/refuge`.
+
+## Copie ZIP en secours
+
+Si vous avez cloné le dépôt, ne lancez pas `git init`. Si l’enseignant vous fournit le ZIP étudiant, extrayez-le entièrement dans un dossier personnel, puis ouvrez un terminal dans le dossier contenant le `pom.xml` principal. Ce dossier contient aussi `TP1` et `mvnw.cmd`. Créez une seule fois votre historique :
+
+```text
+git init
+git add .
+git commit -m "Base de départ TP1"
+```
+
+Si Git demande une identité, utilisez vos propres valeurs (les textes entre guillemets ci-dessous sont à remplacer), puis relancez le commit :
+
+```text
+git config user.name "Votre prénom et nom"
+git config user.email "Votre adresse personnelle"
+```
+
+Ces réglages concernent ce dépôt local. Le ZIP fournit les sources, pas les dépendances Maven ; le premier lancement peut encore nécessiter Internet. Aucun push n’est demandé.
 
 ## Conserver une étape de travail
 

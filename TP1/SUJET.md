@@ -12,7 +12,7 @@ Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune pr
 
 Clonez le dépôt en suivant le guide de démarrage. Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Ouvrez le premier et exécutez `piles.Main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
-Clonez le dépôt public indiqué par l’enseignant, sans créer de fork. Consultez son état avec git status, puis enregistrez les étapes cohérentes de votre travail par des commits locaux. Il n’est pas demandé de pousser vos solutions sur GitHub. N’initialisez pas un second dépôt dans le dépôt cloné. Si l’installation ou la récupération bloque, demandez la copie locale prévue par l’enseignant et poursuivez l’exercice ; la logistique ne doit pas absorber la séance.
+Ne créez pas de fork. Consultez l’état du dépôt avec `git status`, puis enregistrez les étapes cohérentes de votre travail par des commits locaux. Il n’est pas demandé de pousser vos solutions sur GitHub. N’initialisez pas un second dépôt dans le dépôt cloné. Si vous utilisez une archive ZIP de secours, suivez la rubrique « Copie ZIP » du guide de démarrage pour créer votre historique local. Si l’installation ou la récupération bloque, demandez la copie locale prévue par l’enseignant et poursuivez l’exercice ; la logistique ne doit pas absorber la séance.
 
 Pour les tests, l’enseignant montre comment exécuter une méthode JUnit Jupiter. Un test prépare une situation, effectue une action et compare le résultat obtenu à un résultat attendu déterminé à l’avance. Dans `assertEquals(attendu, obtenu)`, l’attendu vient en premier.
 
@@ -37,7 +37,7 @@ Une pile suit la règle « dernier entré, premier sorti ». La capacité de la 
 
 Le contrat précise le comportement visible : `getSommet()` consulte sans retirer, `depiler()` retire et retourne le dernier élément empilé, et la capacité maximale reste respectée.
 
-6. Ouvrez le fichier fourni `pile/src/test/java/piles/PileTest.java`. Exécutez ce premier test :
+6. Ouvrez le fichier fourni `TP1/pile/src/test/java/piles/PileTest.java` (chemin depuis la racine du dépôt). Exécutez ce premier test :
 
 ```java
 package piles;
@@ -84,6 +84,14 @@ Trois changements sont envisagés : modifier les capacités, ajouter une espèce
 
 3. Créez `refuge.ihm` et placez-y `Main`. Déplacez dans cette classe `session`, les questions au clavier et les affichages. Toutes les utilisations de `Scanner`, `System.in` et `System.out` doivent sortir de `Refuge`.
 4. Donnez à `Refuge` des méthodes appelables sans dialogue au clavier : vérifier une place disponible, ajouter un animal et obtenir les résultats à afficher. Procédez par petites étapes en recompilant. Des méthodes provisoires propres aux chiens et aux chats sont acceptées à cette étape.
+**Aide par étapes si les déplacements ne compilent pas.** Les tableaux et compteurs restent privés dans `Refuge` : ne les rendez pas publics pour résoudre les erreurs.
+
+- Déplacez d’abord seulement `Main` dans le paquetage `refuge.ihm` et importez `refuge.Refuge`. Le nom de la classe à lancer devient `refuge.ihm.Main`.
+- Dans `Main`, créez un objet `Refuge`. Déplacez ensuite la boucle de dialogue dans une méthode `session(Refuge refuge)` de `Main` ; les saisies restent dans cette méthode.
+- Lorsqu’une ligne déplacée utilise un tableau ou un compteur privé, remplacez cet accès par une demande à l’objet `refuge`. Vous pouvez d’abord créer dans `Refuge` les méthodes publiques `boolean ajouterChien(Chien chien)` et `boolean ajouterChat(Chat chat)` : elles vérifient le quota, ajoutent si possible et indiquent si l’ajout a réussi. `Main` construit l’animal et affiche le résultat.
+- Pour les cris et la nourriture, faites retourner une `String` par `lesAnimauxCrient()` et `nourrirLesAnimaux()`. La boucle qui prépare ces textes reste dans `Refuge`. Construisez une chaîne contenant les messages séparés par des retours à la ligne ; `Main` affiche cette chaîne avec `System.out.print`.
+- Compilez après chaque petit changement. Ces méthodes propres aux espèces sont provisoires : l’étape suivante les remplacera par `ajouter(IAnimal animal)`.
+
 5. Exécutez à nouveau le même scénario. Qu’aura-t-on à remplacer pour utiliser une autre interface utilisateur ?
 
 Pour limiter le travail, les méthodes de cris et de nourriture peuvent encore retourner des chaînes prêtes à afficher. Cette simplification conserve une dépendance au format des messages ; elle ne rend pas le refuge indépendant de toute présentation.
@@ -96,13 +104,45 @@ Pour limiter le travail, les méthodes de cris et de nourriture peuvent encore r
 7. Placez `Chien` et `Chat` dans `refuge.animaux` et faites-leur implémenter cette interface. Par exemple, un chien retourne `"chien"` pour son espèce et `"aboie"` pour son cri. Adaptez les imports dans le test fourni `AnimauxTest` après le déplacement des classes. Une classe abstraite commune est facultative : elle peut attendre.
 8. Remplacez les deux tableaux et leurs compteurs par une collection de `IAnimal`. Utilisez les méthodes de l’interface pour traiter tous les animaux par la même boucle. `Refuge` ne doit plus nommer `Chien` ou `Chat`, ni tester ces types avec `instanceof`.
 9. Faites fournir les capacités au constructeur de `Refuge` sous la forme d’une `Map<String, Integer>`. La configuration `chien = 5`, `chat = 10` est créée dans `Main`. `Refuge` conserve une copie de cette map. Pour une espèce absente de la configuration, la capacité est 0. Une capacité configurée est positive ou nulle. Aide Java : `new HashMap<>(capacites)` copie une map, et `placesMax.getOrDefault(espece, 0)` lit une capacité en utilisant 0 lorsque la clé est absente.
-10. Complétez `placeDisponiblePour(String espece)` en comptant les animaux déjà présents de cette espèce. La méthode `boolean ajouter(IAnimal animal)` retourne `false` sans modifier la collection si aucune place n’est disponible ; sinon elle ajoute l’animal et retourne `true`. L’IHM affiche le résultat. Le contrôle doit donc rester effectif même sans console.
+10. Créez dans `Refuge` la méthode `public boolean placeDisponiblePour(String espece)` en comptant les animaux déjà présents de cette espèce. La méthode `boolean ajouter(IAnimal animal)` retourne `false` sans modifier la collection si aucune place n’est disponible ; sinon elle ajoute l’animal et retourne `true`. L’IHM affiche le résultat. Le contrôle doit donc rester effectif même sans console.
+
+**Aide collections.** Une liste contient les animaux présents ; une map associe à chaque nom d’espèce sa capacité. Dans `Main`, créez la configuration avant le refuge :
+
+```java
+Map<String, Integer> capacites = new HashMap<>();
+capacites.put("chien", 5);
+capacites.put("chat", 10);
+Refuge refuge = new Refuge(capacites);
+```
+
+Importez `java.util.Map` et `java.util.HashMap`. Les valeurs 5 et 10 appartiennent à la configuration, pas au code interne de `Refuge`.
 
 Les noms d’espèces sont des identifiants convenus, identiques dans la configuration et dans `getEspece()` ; ils restent constants pour un animal donné. Il n’est pas demandé de charger un fichier de configuration ni de traiter des valeurs nulles.
 
 ### Vérifier le changement 15 minutes
 
 11. Sans appeler `Main`, testez avec JUnit un refuge autorisant un seul chien : premier ajout accepté, second refusé, plus de place disponible pour cette espèce. Aucun clavier ne doit être requis.
+Créez le fichier `TP1/refuge/src/test/java/refuge/RefugeTest.java`. Vous pouvez partir de ce squelette ; les trois assertions sont à écrire :
+
+```java
+package refuge;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.Map;
+import refuge.animaux.Chien;
+
+class RefugeTest {
+    @Test void refuseUnSecondChien() {
+        Refuge refuge = new Refuge(Map.of("chien", 1));
+        // Vérifier que ajouter(new Chien("Rex")) renvoie true.
+        // Vérifier que ajouter(new Chien("Milo")) renvoie false.
+        // Vérifier que placeDisponiblePour("chien") renvoie false.
+    }
+}
+```
+
+`Map.of("chien", 1)` crée ici une configuration avec une seule association. Utilisez `assertTrue(...)` pour une condition attendue vraie et `assertFalse(...)` pour une condition attendue fausse. Un test sans assertion ne vérifie pas le résultat attendu.
+
 12. Indiquez où ajouter un lapin : nouvelle classe, capacité et choix dans la console. Quelle modification reste nécessaire dans `Refuge` ? Vérifiez votre réponse dans le code. L’implémentation de `Lapin` est un prolongement si le temps le permet.
 
 ### Bilan 10 minutes
