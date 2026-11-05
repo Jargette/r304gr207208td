@@ -48,6 +48,15 @@ La tour blanche en h8 attaque le roi noir en a8. Depuis ce coin, les seules case
 
 Pour choisir un coup, le moteur recense les coups autorisés et demande à un composant d’évaluer les positions obtenues. Évaluer une position consiste ici à indiquer si le camp qui doit jouer peut gagner, perd ou fait nulle. Vous allez lire comment ces deux parties communiquent, puis écrire une petite simulation de l’évaluateur qui reconnaît le mat immédiat. Dans un test JUnit, cette simulation vous permet de vérifier le choix du moteur sans calculer la valeur de toutes les positions. Le moteur et les règles du jeu sont fournis.
 
+C’est votre premier exemple de **Clean Architecture**. Le code est organisé pour que les règles et les décisions du programme puissent évoluer séparément des détails qui les entourent. Voici les rôles que vous allez rencontrer :
+
+- Le **domaine** représente les positions et les coups, et détermine les coups autorisés.
+- Le **cas d’utilisation** réalise une action du programme. Ici, `ChooseBestMoveService` choisit un coup en s’appuyant sur les règles et sur une évaluation des positions.
+- Le **port** décrit le service dont le cas d’utilisation a besoin. Ici, l’interface `EndgameOracle` déclare comment demander une évaluation. L’**adaptateur** fournit ce service. Dans le moteur, `RetrogradeTablebase` évalue les positions à partir de la table de finales.
+- L’**assemblage** choisit les objets concrets et les relie. Ici, `Main` donne au service l’objet qui évalue les positions. Dans votre test, c’est le test lui-même qui construit et relie les objets.
+
+La **règle des dépendances** porte sur les types que le code connaît. Les dépendances vont vers l’intérieur : les adaptateurs peuvent connaître l’application, et l’application peut connaître le domaine. Ici, le port d’évaluation appartient à l’application. Le service le connaît pour demander une évaluation, et l’adaptateur le connaît parce qu’il l’implémente. Pendant l’exécution, le service appelle l’objet adaptateur à travers le port. Dans le code du service, la dépendance vers l’évaluateur s’arrête au port.
+
 À la fin : deux schémas du programme, une classe OracleTerminal, deux tests dans TD1Test et un court bilan du groupe. Conservez-les dans votre dossier de travail, avec un commit local. Aucun rapport séparé ni push sur GitHub n’est demandé.
 
 ## 0–15 minutes — Découvrir la finale et démarrer
@@ -113,7 +122,7 @@ Dépendances de types : ServiceLivraison --utilise--> Tarif
 Appel à l’exécution : objet service --appelle calculer--> objet tarifFixe
 ```
 
-Sur votre feuille, transposez ce modèle à ChooseBestMoveService, EndgameOracle et RetrogradeTablebase. Dans le schéma de types, ajoutez Main et les types qu’il nomme pour construire les objets. Étiquetez les flèches « utilise », « implémente » ou « construit ». Dans le schéma des appels, représentez seulement un objet service appelant evaluate sur un objet oracle. Le service nomme-t-il RetrogradeTablebase ? Quel fichier choisit cette classe concrète ?
+Sur votre feuille, transposez ce modèle à `ChooseBestMoveService`, `EndgameOracle` et `RetrogradeTablebase`. Dans le schéma de types, ajoutez `Main` et les types qu’il nomme pour construire les objets. Étiquetez les flèches « utilise », « implémente » ou « construit ». Dans le schéma des appels, représentez un objet service appelant `evaluate` sur un objet oracle. Retrouvez dans le code le type du paramètre reçu par le constructeur du service et la ligne de `Main` qui choisit l’objet concret. Expliquez en une phrase pourquoi les deux schémas diffèrent.
 
 ## 35–60 minutes — Créer une simulation limitée
 
@@ -168,7 +177,7 @@ Consultez `git diff`, puis `git add .` et `git commit -m "Tester le service avec
 
 Conservez vos deux schémas et cinq à huit lignes : classes ajoutées, rôle du contrat et de l’assemblage, résultat attendu d’un test, raison pour laquelle cette simulation n’est pas équivalente à l’oracle réel. Le test construit le service avec une autre implémentation : il sert d’assemblage alternatif. Chacun doit pouvoir expliquer une flèche ; pas de recette individuelle.
 
-Le cours donnera les noms : domaine pour les règles, cas d’utilisation pour le choix d’un coup, port pour le contrat et adaptateur pour sa réalisation. Une compatibilité de type ne suffit pas à garantir un même comportement.
+Dans le schéma des types, ajoutez votre simulation et son lien vers `EndgameOracle`. Indiquez où le test la relie au cas d’utilisation. Quel fichier faudrait-il modifier pour utiliser votre simulation si le service créait lui-même la table de finales ? Comparez avec les fichiers réellement modifiés pendant ce TD. Vous utiliserez ce raisonnement dans la suite du projet pour décider où placer un nouveau contrat.
 
 ## Mode dégradé
 
