@@ -6,7 +6,7 @@ Durée : 3 heures. Public : FI et FA. Cette séance précède le premier cours.
 
 Dans ce TP, vous allez modifier deux petits programmes Java pour faciliter des changements précis. À la fin, vous devrez pouvoir expliquer quelle partie du programme a changé, quels clients ont été protégés et comment vous avez vérifié que le comportement attendu est conservé.
 
-Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune préparation avant la séance n’est nécessaire. Les sources sont dans le dépôt [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). L’IA n’est pas utilisée pendant le TP.
+Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune préparation avant la séance n’est nécessaire. L’IA n’est pas utilisée pendant le TP.
 
 ## Démarrage 15 minutes
 
