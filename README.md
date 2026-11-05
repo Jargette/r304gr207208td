@@ -6,23 +6,23 @@ Ce dépôt public contient les sujets et sources de départ des TP. Les corrigé
 
 ## TP1
 
-Lire le [sujet Encapsulation et changements](TP1/SUJET.md). Deux projets : `TP1/pile` et `TP1/refuge`. Leurs classes de démarrage sont respectivement `piles.Main` et `Main`. Les défauts de conception sont intentionnels et constituent le travail du TP.
+Lire le [sujet Encapsulation et changements](TP1/SUJET.md). Les deux exercices sont dans le même projet. Leurs dossiers sont `TP1/pile` et `TP1/refuge`. Leurs classes de démarrage sont respectivement `piles.Main` et `Main`. Les défauts de conception sont intentionnels et constituent le travail du TP.
 
 ## Prérequis
 
 Un JDK 21 ou plus récent, Git et IntelliJ IDEA. Maven fournit JUnit Jupiter 5.11.4.
 
-Le lanceur Maven est inclus. Sa première utilisation télécharge Maven 3.9.9 et les dépendances : une connexion Internet est nécessaire. Un téléchargement ZIP ne remplace pas ce premier téléchargement de dépendances. L’enseignant prévoit une copie locale si l’accès GitHub pose problème.
+Le lanceur Maven est inclus. Sa première utilisation télécharge Maven 3.9.9 et les dépendances : une connexion Internet est nécessaire.
 
 ## Récupérer les sources
 
-Sur les postes de l’IUT, créez votre dossier de projet dans votre espace personnel sur **Z:**. Clonez le dépôt ou extrayez le ZIP dans cet espace. Le disque C: ne doit pas servir à stocker votre projet.
+Sur les postes de l’IUT, créez votre dossier de projet dans votre espace personnel sur **Z:**. Clonez le dépôt dans cet espace. Le disque C: ne doit pas servir à stocker votre projet.
 
 Dans IntelliJ IDEA, choisissez **Get from VCS** (ou **Clone Repository**) et collez `https://github.com/mikalziane/R304-2026-2027.git`. Si vous avez déjà un clone, ouvrez votre copie.
 
 ## Dans IntelliJ IDEA
 
-Ouvrez le `pom.xml` à la racine du dépôt comme projet Maven. Sélectionnez un JDK installé (21 minimum) comme SDK du projet et pour Maven. Laissez l’import Maven télécharger les dépendances. Les projets pile et refuge doivent apparaître séparément.
+Si les deux exercices ne sont pas chargés, choisissez **File > Open**, sélectionnez le `pom.xml` à la racine du dépôt puis cliquez sur **Open as Project** si IntelliJ le propose. Ce fichier indique à IntelliJ quels exercices et bibliothèques charger. Dans **File > Project Structure > Project**, choisissez un JDK 21 ou plus récent dans **SDK**.
 
 Lancez la méthode `main` de l’exercice depuis l’éditeur. Pour les tests, ouvrez `PileTest` ou `AnimauxTest` dans `src/test/java` et lancez le test depuis l’éditeur. Les autres IDE peuvent importer la même configuration Maven.
 
@@ -53,25 +53,6 @@ Au départ, **deux tests doivent réussir**, un par exercice. Cela vérifie le d
 
 Pour ne tester que la pile : `.\mvnw.cmd -pl TP1/pile test` (ou `./mvnw -pl TP1/pile test`). Même principe avec `TP1/refuge`.
 
-## Copie ZIP en secours
-
-Extrayez le ZIP dans votre dossier de travail sur Z: à l’IUT. Ouvrez le dossier contenant le `pom.xml` principal dans IntelliJ IDEA. Pour créer l’historique du ZIP, utilisez **VCS > Enable Version Control Integration** et choisissez **Git**, puis faites un premier commit dans la fenêtre **Commit**. Un clone possède déjà son historique. Si IntelliJ IDEA n’est pas disponible, ouvrez un terminal à la racine de l’archive extraite et créez l’historique :
-
-```text
-git init
-git add .
-git commit -m "Base de départ TP1"
-```
-
-Dans IntelliJ IDEA, renseignez vos nom et adresse si la fenêtre de commit les demande. En terminal, si Git demande une identité, remplacez les exemples ci-dessous par vos propres valeurs, puis relancez le commit :
-
-```text
-git config user.name "Votre prénom et nom"
-git config user.email "Votre adresse personnelle"
-```
-
-Ces réglages concernent ce dépôt local. Le ZIP fournit les sources, pas les dépendances Maven ; le premier lancement peut encore nécessiter Internet. Aucun push n’est demandé.
-
 ## Conserver une étape de travail
 
 Dans IntelliJ IDEA, ouvrez la fenêtre **Commit** pour examiner les modifications et enregistrer une étape cohérente. Si IntelliJ IDEA n’est pas disponible, utilisez le terminal :
@@ -87,10 +68,6 @@ git log --oneline -3
 Adaptez le chemin et le message au travail réellement effectué. En terminal, si Git demande une identité, configurez votre propre nom et adresse dans ce dépôt avec `git config user.name` et `git config user.email`, suivis de vos valeurs. Ne recopiez pas l’identité de quelqu’un d’autre.
 
 Avant de quitter un poste de salle, conservez le dossier complet, y compris son dossier caché `.git`, dans votre espace personnel sur Z:. Vos commits restent locaux.
-
-## En cas de blocage de démarrage
-
-Signalez-le rapidement. Avec la copie locale, vous pouvez poursuivre la lecture et l’exécution dans l’IDE si les dépendances sont disponibles. Sinon, commencez l’analyse des accès et des changements avec les mêmes sources pendant que l’enseignant règle le problème. Ne consacrez pas la séance à installer des outils.
 
 ## Règle d’usage de l’IA
 

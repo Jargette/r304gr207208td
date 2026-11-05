@@ -10,11 +10,12 @@ Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune pr
 
 ## Démarrage 15 minutes
 
-Sur un poste de l’IUT, créez votre dossier de projet dans votre espace personnel sur **Z:**. Choisissez ce dossier pour cloner le dépôt ou extraire le ZIP. Le disque C: ne doit pas servir à stocker votre projet.
+Sur un poste de l’IUT, créez votre dossier de travail dans votre espace personnel sur **Z:**. Clonez le dépôt dans ce dossier.
 
-Dans **IntelliJ IDEA**, choisissez **Get from VCS** (ou **Clone Repository**) et collez `https://github.com/mikalziane/R304-2026-2027.git`. Si vous avez déjà cloné le dépôt, ouvrez votre copie. Si vous utilisez le ZIP de secours, extrayez-le puis ouvrez le dossier qui contient le `pom.xml`.
-
-Importez le projet Maven et sélectionnez un JDK 21 ou plus récent. Ouvrez `PileTest` et `AnimauxTest`, puis lancez chaque test avec le triangle vert dans l’éditeur. Les deux tests doivent réussir. Le premier import Maven peut nécessiter Internet.
+1. Dans **IntelliJ IDEA**, choisissez **Get from VCS** (ou **Clone Repository**), collez `https://github.com/mikalziane/R304-2026-2027.git`. Dans **Directory**, choisissez un emplacement dans votre dossier de travail sur Z: à l’IUT, puis cliquez sur **Clone**. Si vous avez déjà cloné le dépôt, ouvrez votre copie.
+2. Dans la fenêtre **Project**, cherchez les dossiers `TP1/pile` et `TP1/refuge`. Si les dossiers n’apparaissent pas, ou si les triangles verts des tests manquent après le chargement, choisissez **File > Open**, puis sélectionnez le fichier `pom.xml` situé à la racine de `R304-2026-2027`. Si IntelliJ vous le propose, cliquez sur **Open as Project**. Ce fichier indique à IntelliJ où trouver les exercices et les bibliothèques de test. Attendez la fin du chargement.
+3. Dans **File > Project Structure > Project**, choisissez un **JDK 21** ou plus récent dans **SDK**.
+4. Dans `TP1/pile/src/test/java/piles/PileTest.java` puis `TP1/refuge/src/test/java/refuge/AnimauxTest.java`, cliquez sur le triangle vert à côté du nom de la classe. Au total, deux tests doivent réussir.
 
 **Si IntelliJ IDEA n’est pas disponible**, ouvrez un terminal dans votre dossier de travail et utilisez les commandes suivantes. Si vous avez déjà les sources, ouvrez un terminal à leur racine et passez aux tests.
 
@@ -27,7 +28,7 @@ cd R304-2026-2027
 
 Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Dans IntelliJ IDEA, ouvrez `piles.Main` et cliquez sur le triangle vert à côté de `main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
-Dans IntelliJ IDEA, utilisez la fenêtre **Commit** pour examiner vos modifications et enregistrer des étapes cohérentes. Avec le ZIP, activez d’abord Git dans **VCS > Enable Version Control Integration**. Un clone est déjà un dépôt Git. Si IntelliJ IDEA n’est pas disponible, utilisez `git status`, `git add .` et `git commit` depuis la racine du projet. Avec un ZIP, lancez d’abord `git init`. Vos commits restent locaux. Si la récupération bloque, demandez la copie locale prévue par l’enseignant.
+Dans IntelliJ IDEA, utilisez la fenêtre **Commit** pour examiner vos modifications et enregistrer des étapes cohérentes. Si IntelliJ IDEA n’est pas disponible, utilisez `git status`, `git add .` et `git commit` depuis la racine du projet. Vos commits restent locaux.
 
 Pour les tests, l’enseignant montre comment exécuter une méthode JUnit Jupiter. Un test prépare une situation, effectue une action et compare le résultat obtenu à un résultat attendu déterminé à l’avance. Dans `assertEquals(attendu, obtenu)`, l’attendu vient en premier.
 
