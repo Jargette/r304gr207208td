@@ -10,20 +10,24 @@ Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune pr
 
 ## Démarrage 15 minutes
 
-Ouvrez un terminal dans votre dossier de travail et exécutez les deux commandes suivantes. Si vous avez déjà cloné le dépôt, ouvrez le dossier racine de votre copie et passez directement à la suite.
+Sur un poste de l’IUT, créez votre dossier de projet dans votre espace personnel sur **Z:**. Choisissez ce dossier pour cloner le dépôt ou extraire le ZIP. Le disque C: ne doit pas servir à stocker votre projet.
+
+Dans **IntelliJ IDEA**, choisissez **Get from VCS** (ou **Clone Repository**) et collez `https://github.com/mikalziane/R304-2026-2027.git`. Si vous avez déjà cloné le dépôt, ouvrez votre copie. Si vous utilisez le ZIP de secours, extrayez-le puis ouvrez le dossier qui contient le `pom.xml`.
+
+Importez le projet Maven et sélectionnez un JDK 21 ou plus récent. Ouvrez `PileTest` et `AnimauxTest`, puis lancez chaque test avec le triangle vert dans l’éditeur. Les deux tests doivent réussir. Le premier import Maven peut nécessiter Internet.
+
+**Si IntelliJ IDEA n’est pas disponible**, ouvrez un terminal dans votre dossier de travail et utilisez les commandes suivantes. Si vous avez déjà les sources, ouvrez un terminal à leur racine et passez aux tests.
 
 ```text
 git clone https://github.com/mikalziane/R304-2026-2027.git
 cd R304-2026-2027
 ```
 
-Si vous utilisez une archive ZIP de secours, extrayez-la, puis ouvrez un terminal dans le dossier contenant `pom.xml`. Lancez `git init`, `git add .`, puis `git commit -m "Base de départ TP1"`. Si Git demande une identité, renseignez vos nom et adresse avec `git config user.name "Votre nom"` et `git config user.email "Votre adresse"`, puis relancez le commit.
+À la racine du projet, lancez `.\mvnw.cmd test` sous PowerShell ou `sh ./mvnw test` sous macOS/Linux. Après les tests, vous pouvez lancer la pile avec `java -cp TP1/pile/target/classes piles.Main`.
 
-Dans votre IDE, ouvrez le `pom.xml` à la racine comme projet Maven et sélectionnez un JDK 21 ou plus récent. Dans un terminal à la racine, lancez `.\mvnw.cmd test` sous PowerShell ou `sh ./mvnw test` sous macOS/Linux. Au départ, deux tests doivent réussir. Le premier lancement peut nécessiter Internet.
+Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Dans IntelliJ IDEA, ouvrez `piles.Main` et cliquez sur le triangle vert à côté de `main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
-Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Ouvrez le premier et exécutez `piles.Main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
-
-Ne créez pas de fork. Consultez l’état du dépôt avec `git status`, puis enregistrez les étapes cohérentes de votre travail par des commits locaux. Il n’est pas demandé de pousser vos solutions sur GitHub. N’initialisez pas un second dépôt dans le dépôt cloné. Si l’installation ou la récupération bloque, demandez la copie locale prévue par l’enseignant et poursuivez l’exercice ; la logistique ne doit pas absorber la séance.
+Dans IntelliJ IDEA, utilisez la fenêtre **Commit** pour examiner vos modifications et enregistrer des étapes cohérentes. Avec le ZIP, activez d’abord Git dans **VCS > Enable Version Control Integration**. Un clone est déjà un dépôt Git. Si IntelliJ IDEA n’est pas disponible, utilisez `git status`, `git add .` et `git commit` depuis la racine du projet. Avec un ZIP, lancez d’abord `git init`. Vos commits restent locaux. Si la récupération bloque, demandez la copie locale prévue par l’enseignant.
 
 Pour les tests, l’enseignant montre comment exécuter une méthode JUnit Jupiter. Un test prépare une situation, effectue une action et compare le résultat obtenu à un résultat attendu déterminé à l’avance. Dans `assertEquals(attendu, obtenu)`, l’attendu vient en premier.
 
