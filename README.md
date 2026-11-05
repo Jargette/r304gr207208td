@@ -99,3 +99,9 @@ Signalez-le rapidement. Avec la copie locale, vous pouvez poursuivre la lecture 
 ## Règle d’usage de l’IA
 
 Pas d’IA pendant les TP et TD. Hors séance : explications, critiques et idées, pas de génération de code. Une aide exceptionnelle au déblocage doit être signalée à l’enseignant ; elle n’est pas une autorisation générale.
+
+## TD1 — FI
+
+Lire le [sujet du TD1](TD1/SUJET.md). Le moteur fourni sert à étudier la frontière entre le choix d’un coup et sa source d’évaluation. JDK 21 minimum requis.
+
+Depuis la racine du dépôt, entrez dans `TD1`, puis lancez `.\mvnw.cmd test` sous Windows PowerShell ou `sh ./mvnw test` sous macOS/Linux. La base contient 33 tests. Ce projet Maven est autonome : les commandes lancées à la racine pour le TP1 ne lancent pas les tests du TD1.
