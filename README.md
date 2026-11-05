@@ -10,7 +10,7 @@ Lire le [sujet Encapsulation et changements](TP1/SUJET.md). Deux projets : `TP1/
 
 ## Prérequis
 
-Un JDK 21 ou plus récent, Git pour le clonage et un IDE Java au choix. La base a été vérifiée avec le JDK 21 sous Windows ; elle compile au niveau Java 17. JUnit Jupiter 5.11.4 est déclaré dans Maven. Il n’est pas nécessaire de l’ajouter à la main.
+Un JDK 21 ou plus récent, Git pour le clonage et un IDE Java au choix. JUnit Jupiter 5.11.4 est déclaré dans Maven. Il n’est pas nécessaire de l’ajouter à la main.
 
 Le lanceur Maven est inclus. Sa première utilisation télécharge Maven 3.9.9 et les dépendances : une connexion Internet est nécessaire. Un téléchargement ZIP ne remplace pas ce premier téléchargement de dépendances. L’enseignant prévoit une copie locale si l’accès GitHub pose problème.
 
