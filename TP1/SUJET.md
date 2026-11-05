@@ -30,8 +30,6 @@ Les deux exercices se trouvent dans `TP1/pile` et `TP1/refuge`. Dans IntelliJ ID
 
 Dans IntelliJ IDEA, utilisez la fenêtre **Commit** pour examiner vos modifications et enregistrer des étapes cohérentes. Si IntelliJ IDEA n’est pas disponible, utilisez `git status`, `git add .` et `git commit` depuis la racine du projet. Vos commits restent locaux.
 
-Pour les tests, l’enseignant montre comment exécuter une méthode JUnit Jupiter. Un test prépare une situation, effectue une action et compare le résultat obtenu à un résultat attendu déterminé à l’avance. Dans `assertEquals(attendu, obtenu)`, l’attendu vient en premier.
-
 ## Exercice 1 La pile 45 minutes
 
 Une pile suit la règle « dernier entré, premier sorti ». La capacité de la pile reste fixée à sa création. Dans cet exercice, utilisez uniquement des appels valides : ne dépilez pas une pile vide et n’empilez pas dans une pile pleine.
