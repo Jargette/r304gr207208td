@@ -82,7 +82,7 @@ java -version
 .\mvnw.cmd test
 ```
 
-Sous macOS/Linux, utilisez `sh ./mvnw -version` puis `sh ./mvnw test`. Vérifiez que Java et Maven annoncent un JDK 21 ou plus récent. Si les versions diffèrent, faites vérifier `JAVA_HOME` et les réglages de l’IDE. Résultat de départ attendu : **33 tests, zéro échec**. Vous pouvez aussi lancer les tests depuis l’IDE.
+Vérifiez que Java et Maven annoncent un JDK 21 ou plus récent. Si les versions diffèrent, faites vérifier `JAVA_HOME` et les réglages de l’IDE. Résultat de départ attendu : **33 tests, zéro échec**. Vous pouvez aussi lancer les tests depuis l’IDE.
 
 Si le démarrage bloque plus de dix minutes, signalez-le et passez à la lecture avec les fichiers locaux pendant la résolution du problème. Un ZIP ne fournit pas les dépendances Maven hors ligne.
 

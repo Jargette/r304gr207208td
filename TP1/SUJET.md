@@ -27,7 +27,7 @@ git clone https://github.com/mikalziane/R304-2026-2027.git
 cd R304-2026-2027/TP1
 ```
 
-Depuis le dossier `TP1`, lancez `.\mvnw.cmd test` sous PowerShell ou `sh ./mvnw test` sous macOS/Linux. Après les tests, vous pouvez lancer la pile avec `java -cp pile/target/classes piles.Main`.
+Depuis le dossier `TP1`, lancez `.\mvnw.cmd test` sous PowerShell. Après les tests, vous pouvez lancer la pile avec `java -cp pile/target/classes piles.Main`.
 
 Les deux exercices se trouvent dans les dossiers `pile` et `refuge` du projet ouvert. Dans IntelliJ IDEA, ouvrez `piles.Main` et cliquez sur le triangle vert à côté de `main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
