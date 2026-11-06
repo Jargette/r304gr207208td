@@ -92,7 +92,8 @@ public final class Rules {
     }
 
     private static List<Move> whiteMoves(Position p) {
-        List<Move> moves = new ArrayList<>(22);
+        int maxRookMoves = 2 * (Square.BOARD_SIZE - 1);
+        List<Move> moves = new ArrayList<>(KING_STEPS.length + maxRookMoves);
         Square king = p.whiteKing();
         for (int[] step : KING_STEPS) {
             Square to = Square.offset(king.file() + step[0], king.rank() + step[1]);
@@ -117,7 +118,7 @@ public final class Rules {
     }
 
     private static List<Move> blackMoves(Position p) {
-        List<Move> moves = new ArrayList<>(8);
+        List<Move> moves = new ArrayList<>(KING_STEPS.length);
         Square king = p.blackKing();
         for (int[] step : KING_STEPS) {
             Square to = Square.offset(king.file() + step[0], king.rank() + step[1]);

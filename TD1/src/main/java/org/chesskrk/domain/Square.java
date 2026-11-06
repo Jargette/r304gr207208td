@@ -5,7 +5,8 @@ package org.chesskrk.domain;
  */
 public record Square(int index) {
 
-    public static final int COUNT = 64;
+    static final int BOARD_SIZE = 8;
+    public static final int COUNT = BOARD_SIZE * BOARD_SIZE;
 
     public Square {
         if (index < 0 || index >= COUNT) {
@@ -14,10 +15,10 @@ public record Square(int index) {
     }
 
     public static Square of(int file, int rank) {
-        if (file < 0 || file > 7 || rank < 0 || rank > 7) {
+        if (file < 0 || file >= BOARD_SIZE || rank < 0 || rank >= BOARD_SIZE) {
             throw new IllegalArgumentException("File/rank out of range: " + file + "," + rank);
         }
-        return new Square(rank * 8 + file);
+        return new Square(rank * BOARD_SIZE + file);
     }
 
     /** Parses algebraic notation such as "e4". */
@@ -32,18 +33,18 @@ public record Square(int index) {
 
     /** Returns the square at the given offset, or null if it falls off the board. */
     public static Square offset(int file, int rank) {
-        if (file < 0 || file > 7 || rank < 0 || rank > 7) {
+        if (file < 0 || file >= BOARD_SIZE || rank < 0 || rank >= BOARD_SIZE) {
             return null;
         }
-        return new Square(rank * 8 + file);
+        return new Square(rank * BOARD_SIZE + file);
     }
 
     public int file() {
-        return index % 8;
+        return index % BOARD_SIZE;
     }
 
     public int rank() {
-        return index / 8;
+        return index / BOARD_SIZE;
     }
 
     /** Chebyshev (king-move) distance. */
