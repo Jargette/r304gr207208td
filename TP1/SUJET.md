@@ -10,6 +10,8 @@ Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune pr
 
 ## Démarrage 15 minutes
 
+**Si vous suivez les étapes en ligne de commande**, utilisez PowerShell sous Windows si aucun projet n’est encore ouvert. Une fois votre projet ouvert dans IntelliJ IDEA, vous pouvez utiliser **View > Tool Windows > Terminal** (`Alt+F12` sous Windows). Tapez les commandes dans cette fenêtre, une ligne à la fois, puis appuyez sur **Entrée** après chacune. Vérifiez que le terminal se trouve dans le dossier indiqué avant de lancer la commande.
+
 Sur un poste de l’IUT, créez votre dossier de travail dans votre espace personnel sur **Z:**. Clonez le dépôt dans ce dossier.
 
 1. Dans **IntelliJ IDEA**, choisissez **Get from VCS** (ou **Clone Repository**), collez `https://github.com/mikalziane/R304-2026-2027.git`. Dans **Directory**, choisissez un emplacement dans votre dossier de travail sur Z: à l’IUT, puis cliquez sur **Clone**. Si vous avez déjà cloné le dépôt R304, réutilisez ce clone.

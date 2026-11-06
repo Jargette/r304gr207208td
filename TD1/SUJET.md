@@ -59,6 +59,8 @@ La **règle des dépendances** porte sur les types que le code connaît. Les dé
 
 ## 0–15 minutes — Découvrir la finale et démarrer
 
+**Si vous suivez les étapes en ligne de commande**, utilisez PowerShell sous Windows si aucun projet n’est encore ouvert. Une fois votre projet ouvert dans IntelliJ IDEA, vous pouvez utiliser **View > Tool Windows > Terminal** (`Alt+F12` sous Windows). Tapez les commandes dans cette fenêtre, une ligne à la fois, puis appuyez sur **Entrée** après chacune. Vérifiez que le terminal se trouve dans le dossier indiqué avant de lancer la commande.
+
 Le dépôt commun est [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Si vous ne l’avez pas, clonez-le dans votre dossier personnel :
 
 ```text
