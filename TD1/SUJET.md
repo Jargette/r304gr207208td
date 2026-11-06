@@ -12,35 +12,33 @@ Le programme fourni reçoit une position et propose un coup au camp qui doit jou
 
 La tour avance en ligne droite, horizontalement ou verticalement, sans sauter par-dessus une pièce. Le roi avance d’une case dans n’importe quelle direction et ne peut pas aller sur une case attaquée. Les blancs cherchent à faire **mat** au roi noir. Il est mat s’il est attaqué et n’a aucun coup légal. S’il n’a aucun coup légal sans être attaqué, c’est un **pat** et la partie est nulle. Elle est aussi nulle si le roi noir prend la tour et qu’il ne reste que les deux rois.
 
-Voici la position utilisée dans le test du TD1. Les lettres repèrent les colonnes et les chiffres les lignes. Par exemple, b6 désigne la colonne b, ligne 6. RB représente le roi blanc, TB la tour blanche, RN le roi noir. Un point représente une case vide.
+Voici la position utilisée dans le test du TD1. Les lettres repèrent les colonnes et les chiffres les lignes. Par exemple, b6 désigne la colonne b, ligne 6. ♔ représente le roi blanc, ♖ la tour blanche et ♚ le roi noir.
 
 **Avant le coup.** Les blancs doivent jouer.
 
-```text
-    a  b  c  d  e  f  g  h
-8  RN  .  .  .  .  .  .  .
-7   .  .  .  .  .  .  . TB
-6   . RB  .  .  .  .  .  .
-5   .  .  .  .  .  .  .  .
-4   .  .  .  .  .  .  .  .
-3   .  .  .  .  .  .  .  .
-2   .  .  .  .  .  .  .  .
-1   .  .  .  .  .  .  .  .
-```
+|  | a | b | c | d | e | f | g | h |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 8 | ♚ |  |  |  |  |  |  |  |
+| 7 |  |  |  |  |  |  |  | ♖ |
+| 6 |  | ♔ |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |  |  |
+| 3 |  |  |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |  |  |
+| 1 |  |  |  |  |  |  |  |  |
 
 **Après le coup h7 → h8.** Les noirs doivent jouer.
 
-```text
-    a  b  c  d  e  f  g  h
-8  RN  .  .  .  .  .  . TB
-7   .  .  .  .  .  .  .  .
-6   . RB  .  .  .  .  .  .
-5   .  .  .  .  .  .  .  .
-4   .  .  .  .  .  .  .  .
-3   .  .  .  .  .  .  .  .
-2   .  .  .  .  .  .  .  .
-1   .  .  .  .  .  .  .  .
-```
+|  | a | b | c | d | e | f | g | h |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 8 | ♚ |  |  |  |  |  |  | ♖ |
+| 7 |  |  |  |  |  |  |  |  |
+| 6 |  | ♔ |  |  |  |  |  |  |
+| 5 |  |  |  |  |  |  |  |  |
+| 4 |  |  |  |  |  |  |  |  |
+| 3 |  |  |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |  |  |
+| 1 |  |  |  |  |  |  |  |  |
 
 La tour blanche en h8 attaque le roi noir en a8. Depuis ce coin, les seules cases voisines du roi noir sont a7, b7 et b8. Le roi blanc contrôle a7 et b7, et la tour contrôle b8. Le roi noir est donc mat. Votre test vérifiera que le programme choisit ce coup.
 
