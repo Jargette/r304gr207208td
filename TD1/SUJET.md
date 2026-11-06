@@ -50,9 +50,7 @@ Pour choisir un coup, le moteur recense les coups autorisés et demande à un co
 
 ## 0–20 minutes — Présentation et démarrage en parallèle
 
-**Si vous suivez les étapes en ligne de commande**, utilisez PowerShell sous Windows si aucun projet n’est encore ouvert. Une fois votre projet ouvert dans IntelliJ IDEA, vous pouvez utiliser **View > Tool Windows > Terminal** (`Alt+F12` sous Windows). Tapez les commandes dans cette fenêtre, une ligne à la fois, puis appuyez sur **Entrée** après chacune. Vérifiez que le terminal se trouve dans le dossier indiqué avant de lancer la commande.
-
-Le dépôt commun est [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Si vous ne l’avez pas, clonez-le dans votre dossier personnel :
+Le dépôt commun est [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Si vous ne l’avez pas, ouvrez PowerShell dans votre dossier personnel. Tapez les commandes suivantes, une ligne à la fois, en validant chacune avec **Entrée**.
 
 ```text
 git clone https://github.com/mikalziane/R304-2026-2027.git
@@ -65,7 +63,7 @@ En secours, extrayez entièrement `base-etudiante.zip`, puis ouvrez le dossier `
 
 **JDK 21 minimum requis.** Dans IntelliJ, ouvrez `pom.xml` dans ce dossier TD1 comme projet Maven ; choisissez un JDK 21 ou plus récent pour le SDK du projet et pour Maven. Les autres IDE peuvent importer le même pom.xml. Maven télécharge les dépendances lors de la première utilisation ; le lanceur est fourni, donc vous n’avez pas à installer Maven séparément.
 
-Dans un terminal situé dans TD1, sous Windows PowerShell :
+Dans IntelliJ IDEA, ouvrez **View > Tool Windows > Terminal** (`Alt+F12`). Vous pouvez aussi continuer dans PowerShell. Vérifiez que le terminal se trouve dans `TD1`, puis lancez les commandes suivantes.
 
 ```powershell
 java -version

@@ -10,8 +10,6 @@ Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune pr
 
 ## Démarrage 15 minutes
 
-**Si vous suivez les étapes en ligne de commande**, utilisez PowerShell sous Windows si aucun projet n’est encore ouvert. Une fois votre projet ouvert dans IntelliJ IDEA, vous pouvez utiliser **View > Tool Windows > Terminal** (`Alt+F12` sous Windows). Tapez les commandes dans cette fenêtre, une ligne à la fois, puis appuyez sur **Entrée** après chacune. Vérifiez que le terminal se trouve dans le dossier indiqué avant de lancer la commande.
-
 Sur un poste de l’IUT, créez votre dossier de travail dans votre espace personnel sur **Z:**. Clonez le dépôt dans ce dossier.
 
 1. Dans **IntelliJ IDEA**, choisissez **Get from VCS** (ou **Clone Repository**), collez `https://github.com/mikalziane/R304-2026-2027.git`. Dans **Directory**, choisissez un emplacement dans votre dossier de travail sur Z: à l’IUT, puis cliquez sur **Clone**. Si vous avez déjà cloné le dépôt R304, réutilisez ce clone.
@@ -20,14 +18,14 @@ Sur un poste de l’IUT, créez votre dossier de travail dans votre espace perso
 4. Dans `pile/src/test/java/piles/PileTest.java` puis `refuge/src/test/java/refuge/AnimauxTest.java`, cliquez sur le triangle vert à côté du nom de la classe. Au total, deux tests doivent réussir.
 5. Créez votre dépôt GitHub personnel **privé** `R304-travaux`, sans fork, puis reliez-y ce clone et effectuez le premier push en suivant [Créer votre dépôt personnel de TP](#créer-votre-dépôt-personnel-de-tp-une-seule-fois). Cette configuration ne se fait qu’une fois pour les TP de l’année. Le résultat attendu est la présence des fichiers du cours dans votre dépôt privé sur GitHub. Si la connexion ou la configuration bloque, signalez-le et commencez l’exercice pendant que l’enseignant vous aide.
 
-**Si IntelliJ IDEA n’est pas disponible**, ouvrez un terminal dans votre dossier de travail et utilisez les commandes suivantes. Si vous avez déjà les sources, ouvrez un terminal dans leur dossier `TP1` et passez aux tests.
+**Si vous clonez en ligne de commande**, ouvrez PowerShell dans votre dossier de travail. Tapez chaque commande ci-dessous, puis appuyez sur **Entrée**. Si vous avez déjà les sources, ouvrez un terminal dans leur dossier `TP1` et passez aux tests.
 
 ```text
 git clone https://github.com/mikalziane/R304-2026-2027.git
 cd R304-2026-2027/TP1
 ```
 
-Depuis le dossier `TP1`, lancez `.\mvnw.cmd test` sous PowerShell. Après les tests, vous pouvez lancer la pile avec `java -cp pile/target/classes piles.Main`.
+Si le projet est ouvert dans IntelliJ IDEA, vous pouvez aussi ouvrir son terminal avec **View > Tool Windows > Terminal** (`Alt+F12`). Depuis le dossier `TP1`, lancez `.\mvnw.cmd test` sous PowerShell. Après les tests, vous pouvez lancer la pile avec `java -cp pile/target/classes piles.Main`.
 
 Les deux exercices se trouvent dans les dossiers `pile` et `refuge` du projet ouvert. Dans IntelliJ IDEA, ouvrez `piles.Main` et cliquez sur le triangle vert à côté de `main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
