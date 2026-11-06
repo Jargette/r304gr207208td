@@ -46,18 +46,9 @@ La tour blanche en h8 attaque le roi noir en a8. Depuis ce coin, les seules case
 
 Pour choisir un coup, le moteur recense les coups autorisés et demande à un composant d’évaluer les positions obtenues. Évaluer une position consiste ici à indiquer si le camp qui doit jouer peut gagner, perd ou fait nulle. Vous allez lire comment ces deux parties communiquent, puis écrire une petite simulation de l’évaluateur qui reconnaît le mat immédiat. Dans un test JUnit, cette simulation vous permet de vérifier le choix du moteur sans calculer la valeur de toutes les positions. Le moteur et les règles du jeu sont fournis.
 
-C’est votre premier exemple de **Clean Architecture**. Le code est organisé pour que les règles et les décisions du programme puissent évoluer séparément des détails qui les entourent. Voici les rôles que vous allez rencontrer :
-
-- Le **domaine** représente les positions et les coups, et détermine les coups autorisés.
-- Le **cas d’utilisation** réalise une action du programme. Ici, `ChooseBestMoveService` choisit un coup en s’appuyant sur les règles et sur une évaluation des positions.
-- Le **port** décrit le service dont le cas d’utilisation a besoin. Ici, l’interface `EndgameOracle` déclare comment demander une évaluation. L’**adaptateur** fournit ce service. Dans le moteur, `RetrogradeTablebase` évalue les positions à partir de la table de finales.
-- L’**assemblage** choisit les objets concrets et les relie. Ici, `Main` donne au service l’objet qui évalue les positions. Dans votre test, c’est le test lui-même qui construit et relie les objets.
-
-La **règle des dépendances** porte sur les types que le code connaît. Les dépendances vont vers l’intérieur : les adaptateurs peuvent connaître l’application, et l’application peut connaître le domaine. Ici, le port d’évaluation appartient à l’application. Le service le connaît pour demander une évaluation, et l’adaptateur le connaît parce qu’il l’implémente. Pendant l’exécution, le service appelle l’objet adaptateur à travers le port. Dans le code du service, la dépendance vers l’évaluateur s’arrête au port.
-
 À la fin : deux schémas du programme, une classe OracleTerminal, deux tests dans TD1Test et un court bilan du groupe. Conservez-les dans votre dossier de travail, avec un commit local. Aucun rapport séparé ni push sur GitHub n’est demandé.
 
-## 0–15 minutes — Découvrir la finale et démarrer
+## 0–20 minutes — Présentation et démarrage en parallèle
 
 **Si vous suivez les étapes en ligne de commande**, utilisez PowerShell sous Windows si aucun projet n’est encore ouvert. Une fois votre projet ouvert dans IntelliJ IDEA, vous pouvez utiliser **View > Tool Windows > Terminal** (`Alt+F12` sous Windows). Tapez les commandes dans cette fenêtre, une ligne à la fois, puis appuyez sur **Entrée** après chacune. Vérifiez que le terminal se trouve dans le dossier indiqué avant de lancer la commande.
 
@@ -99,20 +90,25 @@ Désignez un pilote du clavier, un lecteur du code et un responsable des tests ;
 
 Une Evaluation indique WIN (gain), DRAW (nulle) ou LOSS (perte), du point de vue du camp qui doit jouer dans la position évaluée. Après un coup blanc, on évalue une position où les noirs doivent jouer : leur LOSS est favorable aux blancs. `loss(0)` signifie que ce camp est déjà mat.
 
-## 15–35 minutes — Lire une frontière du programme
+## 20–32 minutes — Découvrir le code à partir d’un coup
 
-Le service ChooseBestMoveService choisit un coup. Pour cela, il demande à un objet « oracle » d’évaluer les positions. Oracle signifie ici composant chargé de fournir cette évaluation ; le véritable oracle utilise une table de finales. Nous étudions uniquement la frontière entre ce service et l’oracle, pas tout le dialogue du moteur avec une interface de jeu.
+Travaillez en groupe, sans modifier le code. Prenez la position du premier échiquier. Imaginez que le programme examine le coup h7 → h8. Votre but est de repérer où le programme trouve les coups possibles, construit la position suivante et demande une évaluation.
 
-Sous `src/main/java/org/chesskrk`, ouvrez :
+1. Dans `src/main/java/org/chesskrk/domain/Position.java`, lisez la déclaration de `Position`. Repérez ce qui décrit les trois pièces et le camp qui doit jouer. Relevez les valeurs correspondantes sur le premier échiquier, puis indiquez celles qui changent sur le second.
+2. Dans le même paquetage, ouvrez `Rules.java`. Repérez les signatures de `legalMoves` et de `apply`. Associez chaque méthode à une question : « Quels coups puis-je jouer ? » ou « Quelle position obtiendrai-je si je joue ce coup ? ». Dites ce qu’on lui donne et ce qu’elle renvoie. L’implémentation de ces méthodes peut attendre.
+3. Ouvrez `src/main/java/org/chesskrk/application/usecase/ChooseBestMoveService.java`. Dans `chooseMove`, retrouvez les deux appels précédents, puis l’appel à `evaluate`. Pour lire cet appel imbriqué, commencez par le plus intérieur, `Rules.apply(position, move)`. Quel résultat reçoit `evaluate` ? De quel camp est-ce alors le tour ? Reformulez le trajet en trois courtes phrases.
 
-- `application/port/out/EndgameOracle.java` : interface avec `Evaluation evaluate(Position position)` ;
-- `application/usecase/ChooseBestMoveService.java` : constructeur recevant un EndgameOracle et méthode chooseMove ;
-- `adapter/tablebase/RetrogradeTablebase.java` : lisez seulement la déclaration `implements EndgameOracle` et la signature de evaluate ; le calcul de la table est fourni ;
-- `infrastructure/Main.java` : lisez seulement buildUseCase, qui construit l’oracle et le service.
+Le lecteur montre les lignes au groupe, et une autre personne explique le trajet à voix haute. Si les streams, la lambda ou le comparateur vous arrêtent, repérez seulement les appels nommés. Pour la suite, `Optional<Move>` désigne un résultat qui peut contenir un coup ou être vide.
 
-Une interface décrit des opérations attendues ; une classe qui l’implémente fournit leur réalisation. Recevoir un objet au constructeur permet d’utiliser ses opérations sans nommer sa classe concrète. L’assemblage est le code qui choisit et relie les objets.
+## 32–45 minutes — Lire la frontière entre le choix et l’évaluation
 
-La méthode chooseMove utilise des streams, une lambda et un Comparator. Vous n’avez pas à maîtriser ces syntaxes aujourd’hui. Elle effectue trois étapes : obtenir les coups légaux ; évaluer la position produite par chaque coup ; retenir le meilleur selon le score fourni. `Optional<Move>` représente soit un coup présent, soit l’absence de coup légal.
+Vous venez de suivre une position jusqu’à l’appel `oracle.evaluate(...)`. Cherchez maintenant d’où vient l’objet `oracle`. On parle de **frontière** parce que le choix du coup et le calcul de l’évaluation sont deux tâches distinctes qui communiquent par un contrat Java.
+
+1. Restez dans `ChooseBestMoveService.java`. Lisez la déclaration du champ `oracle` et le constructeur. Relevez le **type** de l’objet que le service reçoit et la ligne qui le mémorise.
+2. Sous `src/main/java/org/chesskrk`, ouvrez `application/port/out/EndgameOracle.java`. Lisez la signature de `evaluate`. Notez l’entrée et le résultat que le service peut demander grâce à ce contrat.
+3. Dans `infrastructure/Main.java`, cherchez seulement `buildUseCase`. Quel objet est passé au constructeur du service ? Ouvrez `adapter/tablebase/RetrogradeTablebase.java` et cherchez `implements` pour vérifier le lien entre cette classe et le contrat.
+
+Le **type** se lit dans les déclarations et signatures. L’**objet** est l’instance effectivement utilisée quand le programme tourne. Pour expliquer une flèche, montrez soit le nom du type dans le fichier, soit l’appel que l’objet recevra à l’exécution.
 
 **Deux schémas, deux sens de flèches.** Exemple neutre : un service de livraison reçoit un objet de type interface Tarif ; TarifFixe implémente Tarif.
 
@@ -122,9 +118,20 @@ Dépendances de types : ServiceLivraison --utilise--> Tarif
 Appel à l’exécution : objet service --appelle calculer--> objet tarifFixe
 ```
 
-Sur votre feuille, transposez ce modèle à `ChooseBestMoveService`, `EndgameOracle` et `RetrogradeTablebase`. Dans le schéma de types, ajoutez `Main` et les types qu’il nomme pour construire les objets. Étiquetez les flèches « utilise », « implémente » ou « construit ». Dans le schéma des appels, représentez un objet service appelant `evaluate` sur un objet oracle. Retrouvez dans le code le type du paramètre reçu par le constructeur du service et la ligne de `Main` qui choisit l’objet concret. Expliquez en une phrase pourquoi les deux schémas diffèrent.
+Sur votre feuille, transposez ce modèle à `ChooseBestMoveService`, `EndgameOracle` et `RetrogradeTablebase`. Dans le schéma de types, ajoutez `Main` et les types qu’il nomme pour construire les objets. Étiquetez les flèches « utilise », « implémente » ou « construit ». Dans le schéma des appels, représentez un objet service appelant `evaluate` sur un objet oracle. Expliquez en une phrase pourquoi les deux schémas diffèrent.
 
-## 35–60 minutes — Créer une simulation limitée
+### Repères de Clean Architecture
+
+C’est votre premier exemple de **Clean Architecture**. Le code est organisé pour que les règles et les décisions du programme puissent évoluer séparément des détails qui les entourent. Voici les rôles que vous allez rencontrer :
+
+- Le **domaine** représente les positions et les coups, et détermine les coups autorisés.
+- Le **cas d’utilisation** réalise une action du programme. Ici, `ChooseBestMoveService` choisit un coup en s’appuyant sur les règles et sur une évaluation des positions.
+- Le **port** décrit le service dont le cas d’utilisation a besoin. Ici, l’interface `EndgameOracle` déclare comment demander une évaluation. L’**adaptateur** fournit ce service. Dans le moteur, `RetrogradeTablebase` évalue les positions à partir de la table de finales.
+- L’**assemblage** choisit les objets concrets et les relie. Ici, `Main` donne au service l’objet qui évalue les positions. Dans votre test, c’est le test lui-même qui construit et relie les objets.
+
+La **règle des dépendances** porte sur les types que le code connaît. Les dépendances vont vers l’intérieur : les adaptateurs peuvent connaître l’application, et l’application peut connaître le domaine. Ici, le port d’évaluation appartient à l’application. Le service le connaît pour demander une évaluation, et l’adaptateur le connaît parce qu’il l’implémente. Pendant l’exécution, le service appelle l’objet adaptateur à travers le port. Dans le code du service, la dépendance vers l’évaluateur s’arrête au port.
+
+## 45–65 minutes — Créer une simulation limitée
 
 Créez `src/main/java/org/chesskrk/adapter/pedagogie/OracleTerminal.java`, avec le paquetage `org.chesskrk.adapter.pedagogie`. Cette classe publique implémente EndgameOracle. Sa méthode publique evaluate reçoit une Position et retourne une Evaluation :
 
@@ -135,7 +142,7 @@ Imports utiles : `org.chesskrk.application.port.out.EndgameOracle`, `org.chesskr
 
 Cette simulation ne connaît que le mat immédiat. DRAW veut ici dire « traité comme nul par la simulation », pas « vraiment nul ». Elle possède la bonne signature Java mais ne respecte pas toute la promesse de connaissance parfaite du véritable oracle. Nous la branchons uniquement dans des tests, en laissant Main, le service et les règles inchangés. Les contrôles automatiques d’architecture fournis connaissent déjà le paquetage pedagogie.
 
-## 60–80 minutes — Écrire deux tests et conserver le travail
+## 65–83 minutes — Écrire deux tests et conserver le travail
 
 Créez `src/test/java/org/chesskrk/application/TD1Test.java`. Voici le début à compléter :
 
@@ -173,7 +180,7 @@ Relancez la suite : **35 tests attendus après les deux ajouts**, tous réussis.
 
 Consultez `git diff`, puis `git add .` et `git commit -m "Tester le service avec un oracle simule"` depuis TD1. Expliquez quel défaut votre assertion du mat détecterait et pourquoi elle ne démontre pas que la simulation joue parfaitement. Les commits sont locaux : avant de quitter la salle, conservez le dossier `R304-2026-2027` entier si vous avez cloné, ou le dossier `TD1` entier si vous avez utilisé le ZIP, avec son dossier caché `.git` dans les deux cas.
 
-## 80–90 minutes — Bilan
+## 83–90 minutes — Bilan
 
 Conservez vos deux schémas et cinq à huit lignes : classes ajoutées, rôle du contrat et de l’assemblage, résultat attendu d’un test, raison pour laquelle cette simulation n’est pas équivalente à l’oracle réel. Le test construit le service avec une autre implémentation : il sert d’assemblage alternatif. Chacun doit pouvoir expliquer une flèche ; pas de recette individuelle.
 
