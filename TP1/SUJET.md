@@ -13,9 +13,10 @@ Les exercices utilisent les sources du TP1 « pile » et « refuge ». Aucune pr
 Sur un poste de l’IUT, créez votre dossier de travail dans votre espace personnel sur **Z:**. Clonez le dépôt dans ce dossier.
 
 1. Dans **IntelliJ IDEA**, choisissez **Get from VCS** (ou **Clone Repository**), collez `https://github.com/mikalziane/R304-2026-2027.git`. Dans **Directory**, choisissez un emplacement dans votre dossier de travail sur Z: à l’IUT, puis cliquez sur **Clone**. Si vous avez déjà cloné le dépôt R304, réutilisez ce clone.
-2. Dans IntelliJ IDEA, choisissez **File > Open**. Dans le dépôt cloné, ouvrez le dossier `TP1` et sélectionnez son fichier `pom.xml` (`R304-2026-2027/TP1/pom.xml`). Si IntelliJ vous le propose, cliquez sur **Open as Project**. Ce fichier indique à IntelliJ où trouver les exercices et les bibliothèques de test. Attendez la fin du chargement. Vous devez voir les deux exercices `pile` et `refuge`. Vous devez voir les deux exercices `pile` et `refuge`.
+2. Dans IntelliJ IDEA, choisissez **File > Open**. Dans le dépôt cloné, ouvrez le dossier `TP1` et sélectionnez son fichier `pom.xml` (`R304-2026-2027/TP1/pom.xml`). Si IntelliJ vous le propose, cliquez sur **Open as Project**. Ce fichier indique à IntelliJ où trouver les exercices et les bibliothèques de test. Attendez la fin du chargement. Vous devez voir les deux exercices `pile` et `refuge`.
 3. Dans **File > Project Structure > Project**, choisissez un **JDK 21** ou plus récent dans **SDK**.
 4. Dans `pile/src/test/java/piles/PileTest.java` puis `refuge/src/test/java/refuge/AnimauxTest.java`, cliquez sur le triangle vert à côté du nom de la classe. Au total, deux tests doivent réussir.
+5. Créez votre dépôt GitHub personnel **privé** `R304-travaux`, sans fork, puis reliez-y ce clone et effectuez le premier push en suivant [Créer votre dépôt personnel de TP](../README.md#créer-votre-dépôt-personnel-de-tp-une-seule-fois). Cette configuration ne se fait qu’une fois pour les TP de l’année. Le résultat attendu est la présence des fichiers du cours dans votre dépôt privé sur GitHub. Si la connexion ou la configuration bloque, signalez-le et commencez l’exercice pendant que l’enseignant vous aide.
 
 **Si IntelliJ IDEA n’est pas disponible**, ouvrez un terminal dans votre dossier de travail et utilisez les commandes suivantes. Si vous avez déjà les sources, ouvrez un terminal dans leur dossier `TP1` et passez aux tests.
 
@@ -28,7 +29,7 @@ Depuis le dossier `TP1`, lancez `.\mvnw.cmd test` sous PowerShell ou `sh ./mvnw 
 
 Les deux exercices se trouvent dans les dossiers `pile` et `refuge` du projet ouvert. Dans IntelliJ IDEA, ouvrez `piles.Main` et cliquez sur le triangle vert à côté de `main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
-Dans IntelliJ IDEA, utilisez la fenêtre **Commit** pour examiner vos modifications et enregistrer des étapes cohérentes. Si IntelliJ IDEA n’est pas disponible, utilisez `git status`, `git add .` et `git commit` depuis le dossier `TP1`. Git enregistre vos commits dans le dépôt R304, au niveau supérieur.
+À la fin d’une étape vérifiée, faites un **commit** pour enregistrer votre version localement, puis un **push** vers votre dépôt privé pour la sauvegarder sur GitHub. Le [parcours détaillé du README](../README.md#enregistrer-puis-sauvegarder-une-étape-de-travail) prend comme exemple la pile une fois encapsulée. Il explique aussi chaque commande si IntelliJ n’est pas disponible. Git gère l’ensemble du clone : ne créez pas un second dépôt dans `TP1`.
 
 ## Exercice 1 La pile 45 minutes
 
@@ -77,7 +78,7 @@ Le test fourni doit déjà réussir sur la version initiale. Il vérifie un comp
 
 ### Bilan 5 minutes
 
-8. Après encapsulation, quels fichiers devraient changer pour passer du tableau à la liste ? Les tests devraient-ils changer ? Sous quelle condition ? Enregistrez votre modification dans Git si disponible.
+8. Après encapsulation, quels fichiers devraient changer pour passer du tableau à la liste ? Les tests devraient-ils changer ? Sous quelle condition ? Enregistrez cette étape par un commit, puis poussez-le vers votre dépôt privé et vérifiez-le sur GitHub en suivant le README.
 
 **Prolongement si vous avez terminé.** Remplacez effectivement le tableau par une liste en conservant la capacité maximale, le nom `Pile`, les signatures et le comportement des méthodes. Réexécutez les mêmes tests et le même client sans les modifier.
 
@@ -162,7 +163,7 @@ class RefugeTest {
 ### Bilan 10 minutes
 
 13. Dessinez les trois paquetages et les classes/interfaces principales. Tracez une flèche de A vers B quand A utilise B, en distinguant le lien d’implémentation d’une interface. Situez les créations `new Chien(...)` et `new Chat(...)`.
-14. En quelques phrases, expliquez ce que vous avez caché, de quel client, et pour quels changements. Enregistrez une étape cohérente de votre travail.
+14. En quelques phrases, expliquez ce que vous avez caché, de quel client, et pour quels changements. Enregistrez une étape cohérente par un commit, puis poussez-la vers votre dépôt privé.
 
 **Si vous manquez de temps.** Terminez une étape qui compile et notez précisément les dépendances restantes. Priorité à la séparation de la console, puis au contrat commun des animaux. Ne supprimez pas les limites d’accueil pour faire passer le programme. L’enseignant organise la synthèse à partir des étapes atteintes.
 
@@ -170,4 +171,4 @@ class RefugeTest {
 
 Pour la pile puis le refuge, donnez un exemple de changement désormais localisé et un exemple de changement qui peut encore toucher le client. Expliquez pourquoi une suite de tests réussie ne suffit pas à prouver que les dépendances interdites ont disparu.
 
-Conservez le code, les tests et vos réponses courtes avec les fichiers de travail. Les commits restent locaux ; les modalités d’une éventuelle remise seront indiquées par l’enseignant. Les corrigés seront diffusés sur Moodle. Aucun rapport séparé n’est demandé.
+Conservez le code, les tests et vos réponses courtes avec les fichiers de travail. Avant de quitter la séance, vérifiez sur votre dépôt GitHub privé le dernier commit et un fichier modifié. Les modalités d’une éventuelle remise seront indiquées par l’enseignant ; aucune invitation à votre dépôt n’est demandée aujourd’hui. Les corrigés seront diffusés sur Moodle. Aucun rapport séparé n’est demandé.
