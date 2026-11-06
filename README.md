@@ -75,7 +75,7 @@ Pour ne tester que la pile : `.\mvnw.cmd -pl pile test` (ou `sh ./mvnw -pl pile 
 
 ## Enregistrer puis sauvegarder une étape de travail
 
-**Exemple : vous venez de terminer l’encapsulation de la pile.** Vous avez rendu ses attributs privés, adapté `Main` et vérifié vos tests. Vous voulez conserver cette étape avant de passer au refuge.
+**Exemple.** Vous venez d’ajouter un test dans `PileTest.java`. Il passe et vous souhaitez conserver cette étape avant de poursuivre.
 
 Un **commit** enregistre une version dans votre dépôt local. Un **push** transmet les commits à votre dépôt privé sur GitHub. Une modification qui n’a pas été enregistrée dans un commit n’est pas envoyée par un push.
 
@@ -83,7 +83,7 @@ Un **commit** enregistre une version dans votre dépôt local. Un **push** trans
 
 1. Ouvrez la fenêtre **Commit** (menu **View > Tool Windows > Commit**, ou **Git > Commit** selon votre version).
 2. Sélectionnez les fichiers modifiés de `TP1/pile/src`, y compris les nouveaux tests. Ouvrez le diff d’un fichier en double-cliquant dessus : il compare son ancienne version et votre version. Vérifiez les ajouts et suppressions. Ne sélectionnez pas les dossiers `target` ni les fichiers de configuration personnels de l’IDE.
-3. Saisissez un message qui décrit votre changement, par exemple `Encapsuler la pile et vérifier son contrat`, puis cliquez sur **Commit**. Si l’IDE demande une identité Git, indiquez votre propre nom et votre adresse associée à GitHub (l’adresse de confidentialité GitHub convient aussi). Cette identité identifie l’auteur des commits ; elle ne remplace pas la connexion à GitHub.
+3. Saisissez un message qui décrit votre changement, par exemple `Ajouter un test pour la pile`, puis cliquez sur **Commit**. Si l’IDE demande une identité Git, indiquez votre propre nom et votre adresse associée à GitHub (l’adresse de confidentialité GitHub convient aussi). Cette identité identifie l’auteur des commits ; elle ne remplace pas la connexion à GitHub.
 4. Choisissez **Git > Push**, vérifiez la destination **origin/main** sur votre compte personnel, puis cliquez sur **Push**.
 5. Sur la page GitHub de votre dépôt privé, ouvrez `TP1/pile/src`. Vérifiez que votre dernier message de commit apparaît et ouvrez un fichier modifié pour vérifier son contenu.
 
@@ -102,14 +102,14 @@ git push -u origin main
 
 `remote rename` conserve le lien vers le cours sous le nom `upstream` ; `remote add` ajoute votre dépôt privé sous le nom `origin`. `remote -v` affiche les adresses à vérifier. Le premier `push -u` envoie la branche et établit son suivi vers `origin/main`. Si les deux adresses sont déjà configurées, vérifiez-les avec `git remote -v` et ne relancez pas les commandes rename/add.
 
-Après le travail sur la pile, placez-vous dans le dossier **TP1**, puis :
+Une fois votre test passé, exécutez ces commandes depuis le dossier **TP1**.
 
 ```text
 git status
 git diff
 git add pile/src
 git diff --cached
-git commit -m "Encapsuler la pile et vérifier son contrat"
+git commit -m "Ajouter un test pour la pile"
 git push origin main
 git log --oneline -3
 ```

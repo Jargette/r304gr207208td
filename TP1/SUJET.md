@@ -29,7 +29,7 @@ Depuis le dossier `TP1`, lancez `.\mvnw.cmd test` sous PowerShell ou `sh ./mvnw 
 
 Les deux exercices se trouvent dans les dossiers `pile` et `refuge` du projet ouvert. Dans IntelliJ IDEA, ouvrez `piles.Main` et cliquez sur le triangle vert à côté de `main`. Repérez `Pile` et son client `Main` : un client est ici une classe qui utilise les services d’une autre classe.
 
-À la fin d’une étape vérifiée, faites un **commit** pour enregistrer votre version localement, puis un **push** vers votre dépôt privé pour la sauvegarder sur GitHub. Le [parcours détaillé du README](../README.md#enregistrer-puis-sauvegarder-une-étape-de-travail) prend comme exemple la pile une fois encapsulée. Il explique aussi chaque commande si IntelliJ n’est pas disponible. Git gère l’ensemble du clone : ne créez pas un second dépôt dans `TP1`.
+À la fin d’une étape vérifiée, faites un **commit** pour enregistrer votre version localement, puis un **push** vers votre dépôt privé pour la sauvegarder sur GitHub. Le [parcours détaillé du README](../README.md#enregistrer-puis-sauvegarder-une-étape-de-travail) prend comme exemple l’ajout d’un test pour la pile. Il explique aussi chaque commande si IntelliJ n’est pas disponible. Git gère l’ensemble du clone : ne créez pas un second dépôt dans `TP1`.
 
 ## Exercice 1 La pile 45 minutes
 
