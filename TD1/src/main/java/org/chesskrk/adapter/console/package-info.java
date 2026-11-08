@@ -1,2 +1,2 @@
-/** Parler à l’extérieur : jouer contre le moteur dans une console. */
+/** Échanger les coups par une console : recevoir le coup de l’adversaire, annoncer le sien, afficher l’échiquier. */
 package org.chesskrk.adapter.console;
