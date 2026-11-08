@@ -14,9 +14,24 @@ Aujourd’hui, vous disposez de **cinq fichiers Java, test compris**, tous dans 
 - `src/main/java/krk/adaptateur/EvaluationDeuxPositions.java`
 - `src/test/java/krk/ChoisirPositionTest.java`
 
-Le programme choisit entre **deux positions déjà fournies**. Il ne calcule pas les coups autorisés et ne joue pas une partie. L’évaluateur fourni reconnaît ces deux positions et rejette toute autre position qu’il reçoit.
+Le programme choisit entre **deux positions déjà fournies**. Il ne calcule pas les coups permis et ne joue pas une partie. L’évaluateur fourni reconnaît ces deux positions et rejette toute autre position qu’il reçoit.
 
 Vous allez lancer les tests existants, lire tout ce petit programme, suivre les objets et compléter un schéma. **Aucune classe ni aucun test à écrire aujourd’hui.** Conservez une feuille de groupe (papier ou fichier) avec vos réponses et votre schéma. Pas de rapport séparé ni de dépôt à remettre.
+
+## D’où l’on part, où l’on va
+
+**Aujourd’hui.** La règle de choix est simple : garder la position où les noirs sont mats si elle existe, sinon la première. Le mot « mat » est expliqué plus bas. Pour savoir si une position est un mat, le programme ne calcule rien : il pose la question à un *évaluateur*, qui ne connaît que les deux positions de l’exemple, A et B, dessinées plus bas.
+
+**Un vrai programme d’échecs KRK** fait plus : à partir de n’importe quelle position, il liste les coups permis, évalue la position obtenue après chacun, joue le meilleur et dialogue avec un logiciel qui affiche l’échiquier. Nos cinq fichiers en sont la plus petite tranche : « choisir en demandant à un évaluateur ». La frontière, c’est-à-dire la limite entre la partie qui choisit et la partie qui évalue, que vous allez lire aujourd’hui existe, sous une forme très proche, dans le programme complet.
+
+**Au fil des TD et à la fin**, déroulé prévisionnel précisé séance par séance :
+
+- TD1 : lire cette frontière et la justifier avec le code.
+- TD2 : remplacer l’évaluateur dans un test ; vous verrez ce qui doit changer et ce qui ne change pas.
+- Ensuite : écrire de vraies règles (attaque, échec, mat) ; choisir un coup parmi tous les coups permis ; changer la façon dont le programme parle à l’extérieur ; brancher un évaluateur fourni qui connaît le résultat exact de toute position.
+- L’objectif est qu’à la fin votre groupe ait un petit programme KRK qui fonctionne, que vous aurez fait évoluer étape par étape, avec ses tests, un schéma fidèle au code et une version identifiable dans Git.
+
+Vous saurez alors dire, pour un changement annoncé, quels fichiers bougent et lesquels restent intacts. C’est la compétence visée ; le contrôle individuel de TD, en semaine 8, vous demandera de l’expliquer.
 
 ## Les deux positions de l’exemple
 
