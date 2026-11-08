@@ -2,19 +2,27 @@
 
 R304 FI — 90 minutes — groupes de 3 à 5. Cette séance précède le premier cours. Aucune connaissance de Clean Architecture ni des échecs n’est supposée. Un portable par groupe suffit. Pas d’IA pendant le TD.
 
-## Le projet des TD : construire un petit moteur d’échecs
+**Comment lire ce sujet.** La partie « Contexte » se lit une fois. Ensuite, chaque tranche horaire donne une liste numérotée d’**Actions** : une action par ligne, le verbe en gras. « **Sur la feuille :** » dit ce que vous écrivez sur la feuille de groupe (papier ou fichier). « **Résultat attendu :** » dit ce que vous devez voir. Rien d’autre n’est à rendre.
 
-Pendant les TD, votre groupe va écrire et surtout concevoir un petit **moteur d’échecs** pour la finale **KRK**, *King, Rook, King* : un roi et une tour blancs contre un roi noir. Un moteur d’échecs est un programme qui joue : à partir d’une position, il liste les coups permis, évalue la position obtenue après chacun, joue le meilleur, et échange les coups avec l’extérieur : il reçoit le coup de l’adversaire et annonce le sien, par une console ou par un logiciel qui affiche l’échiquier.
+## Contexte, à lire une fois
 
-Aujourd’hui, vous recevez un moteur complet qui fonctionne. Il joue mal. Vous allez jouer contre lui, comprendre comment il est organisé, puis le rendre imbattable en changeant **une ligne** (et son import). Aucune classe ni aucun test à écrire. Conservez une feuille de groupe (papier ou fichier) avec vos réponses et votre schéma. Pas de rapport séparé ni de dépôt à remettre.
+### Le projet des TD
 
-Au TD suivant, le code fourni aura un défaut, et ce sera à vous de le trouver, de le corriger et de prouver qu’il a disparu. Les séances suivantes construisent le moteur étape par étape, jusqu’à une version que vous aurez fait évoluer vous-mêmes, avec ses tests, un schéma fidèle au code et une version identifiable dans Git. Ce déroulé est prévisionnel et sera précisé séance par séance.
+Pendant les TD, votre groupe va écrire et surtout concevoir un petit **moteur d’échecs** pour la finale **KRK**, *King, Rook, King* : un roi et une tour blancs contre un roi noir. Un moteur d’échecs, à partir d’une position, liste les coups permis, évalue la position obtenue après chacun, joue le meilleur, et échange les coups avec l’extérieur : il reçoit le coup de l’adversaire et annonce le sien, par une console ou par un logiciel qui affiche l’échiquier.
 
-## La finale roi et tour contre roi
+Aujourd’hui, vous recevez un moteur complet qui fonctionne et qui joue mal. Vous jouez contre lui, vous comprenez comment il est organisé, puis vous le rendez imbattable en changeant **une ligne** (et son import). Aucune classe ni aucun test à écrire.
 
-Les lettres indiquent les colonnes, les chiffres les lignes : b6 est la colonne b, ligne 6. ♔ est le roi blanc, ♖ la tour blanche et ♚ le roi noir. Dans la console du programme, ces pièces s’écrivent `K`, `R` et `k`. Un camp est **au trait** quand c’est à lui de jouer.
+Au TD suivant, le code fourni aura un défaut, et ce sera à vous de le trouver, de le corriger et de prouver qu’il a disparu. Les séances suivantes construisent le moteur étape par étape ; ce déroulé est prévisionnel.
 
-Trois règles suffisent aujourd’hui. La tour attaque toutes les cases de sa ligne et de sa colonne, sans traverser une pièce. Le roi se déplace d’une case dans toutes les directions ; il attaque donc ses cases voisines, et il ne peut pas aller sur une case attaquée par l’adversaire (on dit aussi contrôlée). Un roi attaqué est en **échec**. Un roi en échec est **mat** s’il n’a aucune case sûre : aucune case voisine libre et non attaquée, et pas de tour voisine qu’il puisse prendre sans danger. La partie est alors perdue pour son camp.
+### La finale roi et tour contre roi
+
+Les lettres indiquent les colonnes, les chiffres les lignes : b6 est la colonne b, ligne 6. ♔ est le roi blanc, ♖ la tour blanche et ♚ le roi noir ; dans la console du programme, ces pièces s’écrivent `K`, `R` et `k`. Un camp est **au trait** quand c’est à lui de jouer.
+
+Trois règles suffisent aujourd’hui :
+
+- la **tour** attaque toutes les cases de sa ligne et de sa colonne, sans traverser une pièce ;
+- le **roi** se déplace d’une case dans toutes les directions ; il attaque donc ses cases voisines, et il ne peut pas aller sur une case attaquée par l’adversaire (on dit aussi contrôlée) ;
+- un roi attaqué est en **échec** ; un roi en échec est **mat** s’il n’a aucune case sûre, c’est-à-dire aucune case voisine libre et non attaquée, et pas de tour voisine qu’il puisse prendre sans danger. La partie est alors perdue pour son camp.
 
 **Le départ de vos parties, les blancs au trait** : roi blanc e1, tour a1, roi noir e5.
 
@@ -42,11 +50,11 @@ Trois règles suffisent aujourd’hui. La tour attaque toutes les cases de sa li
 | 2 | | | | | | | | |
 | 1 | | | | | | | | |
 
-Avec un roi et une tour contre un roi seul, les blancs peuvent toujours forcer le mat, en seize coups au plus s’ils jouent parfaitement. Mais si les blancs ne savent pas s’y prendre, la partie est **nulle** : quand la tour est prise, quand le roi noir, sans être en échec, n’a plus aucun coup permis (c’est le **pat**), ou après cinquante coups de chaque camp sans mat.
+Avec un roi et une tour contre un roi seul, les blancs peuvent toujours forcer le mat, en seize coups au plus s’ils jouent parfaitement. Sinon la partie est **nulle** : quand la tour est prise, quand le roi noir, sans être en échec, n’a plus aucun coup permis (c’est le **pat**), ou après cinquante coups de chaque camp sans mat.
 
-## Les responsabilités du moteur, et ses couches
+### Les responsabilités du moteur, et ses couches
 
-Le moteur fourni est découpé en **responsabilités**. Une responsabilité, c’est ce dont une partie du programme s’occupe, et qui a sa propre raison de changer. On la nomme par un verbe.
+Une **responsabilité**, c’est ce dont une partie du programme s’occupe, et qui a sa propre raison de changer. On la nomme par un verbe.
 
 | Responsabilité | Ce qu’elle sait | Où, dans le code |
 |---|---|---|
@@ -56,104 +64,128 @@ Le moteur fourni est découpé en **responsabilités**. Une responsabilité, c�
 | **Échanger les coups** : recevoir le coup de l’adversaire, annoncer le sien, afficher l’échiquier. | Comment les coups entrent et sortent : une console, ou le protocole UCI d’un logiciel d’échecs. | `org.chesskrk.adapter.console` : `ConsoleGame` ; `org.chesskrk.adapter.uci` : `UciSession`, `FenCodec`, `UciMoveCodec` |
 | **Assembler** : créer les objets et les relier au démarrage. | Quels objets concrets composent le programme. | `org.chesskrk.infrastructure` : `Main` |
 
-Ces responsabilités sont rangées en **couches**, du centre vers l’extérieur : le **domaine** (les règles), l’**application** (le choix, le contrat de choix d’un coup qu’il offre et le contrat d’évaluation d’une position qu’il exige), les **adaptateurs** (évaluer, échanger les coups), l’**infrastructure** (assembler). C’est le découpage appelé **Clean Architecture** ; vous le retrouverez en cours. Sa règle unique, que vous vérifierez aujourd’hui sur un cas : **une couche ne connaît que les couches plus au centre qu’elle**. Les règles ne connaissent personne. Le choix connaît les règles, mais pas la console ni la table. Seul l’assemblage connaît tout le monde.
+Ces responsabilités sont rangées en **couches**, du centre vers l’extérieur : le **domaine** (les règles), l’**application** (le choix, le contrat de choix d’un coup qu’il offre et le contrat d’évaluation d’une position qu’il exige), les **adaptateurs** (évaluer, échanger les coups), l’**infrastructure** (assembler). C’est le découpage appelé **Clean Architecture** ; vous le retrouverez en cours. Sa règle unique : **une couche ne connaît que les couches plus au centre qu’elle**. Les règles ne connaissent personne ; le choix connaît les règles, mais pas la console ni la table ; seul l’assemblage connaît tout le monde.
 
 Entre deux responsabilités passe une **frontière** ; une seule nous occupe aujourd’hui, celle entre la responsabilité de choisir un coup et celle d’évaluer une position. Le reste du moteur, UCI compris, est là pour plus tard. Les pièces, roi et tour, sont supposées ne jamais changer : elles vivent dans le domaine.
 
-## 0–20 min — Présentation et ouverture du projet
+## 0–20 min — Ouvrir le projet et jouer un premier coup
 
 Ouvrez le projet sur un portable du groupe pendant la présentation de l’enseignant ; les autres écoutent. Alternez ensuite les rôles de lecteur, pilote du clavier et rédacteur.
 
-Le dépôt public est [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Dans IntelliJ IDEA, choisissez **Get from VCS** (ou **Clone Repository** selon la version) sur l’écran d’accueil, puis saisissez l’URL `https://github.com/mikalziane/R304-2026-2027.git` dans le champ **URL**. Choisissez votre dossier personnel sur votre portable ; sur un poste IUT, utilisez votre espace personnel sur `Z:`. Si vous avez déjà récupéré le dépôt en TP1, ne clonez pas à nouveau : ouvrez ce clone (**File > Open** sur son dossier) et mettez-le à jour avec **Git > Update Project** (`Ctrl+T`), ou `git pull` dans le terminal. Le dossier `TD1/src/main/java/org/chesskrk` doit contenir les dossiers `domain`, `application`, `adapter` et `infrastructure` ; sinon, appelez l’enseignant.
+**Actions**
 
-Dans les deux cas, choisissez ensuite **File > Open**, ouvrez le dossier `TD1` du dépôt cloné et sélectionnez son fichier `pom.xml`. Si IntelliJ vous le propose, cliquez sur **Open as Project**, puis sur **This Window**. Maven, l’outil qui compile le projet et télécharge ses bibliothèques, se met alors au travail ; une connexion Internet est nécessaire la première fois. Attendez que la barre de progression en bas de la fenêtre disparaisse : l’import est alors terminé. Dans **File > Project Structure > Project**, choisissez un **JDK 21** ou plus récent dans **SDK**. Si aucun JDK 21 n’apparaît, choisissez **Add SDK > Download JDK** dans ce même écran.
+1. **Clonez** le dépôt dans IntelliJ IDEA, sauf si vous l’avez déjà fait en TP1 : **Get from VCS** (ou **Clone Repository** selon la version) sur l’écran d’accueil, URL `https://github.com/mikalziane/R304-2026-2027.git`, dans votre dossier personnel ou, sur un poste IUT, dans votre espace `Z:`.
+2. **Mettez à jour** le clone s’il existait déjà : **File > Open** sur son dossier, puis **Git > Update Project** (`Ctrl+T`). **Résultat attendu :** `TD1/src/main/java/org/chesskrk` contient `domain`, `application`, `adapter` et `infrastructure` ; sinon, appelez l’enseignant.
+3. **Ouvrez** le projet de la séance : **File > Open**, dossier `TD1`, fichier `pom.xml`, puis **Open as Project** et **This Window**. Maven, l’outil qui compile le projet et télécharge ses bibliothèques, se met au travail ; Internet est nécessaire la première fois. **Résultat attendu :** la barre de progression en bas de la fenêtre a disparu.
+4. **Choisissez** le JDK : **File > Project Structure > Project**, **SDK** : un **JDK 21** ou plus récent ; s’il n’y en a pas, **Add SDK > Download JDK**.
+5. **Lancez** `src/main/java/org/chesskrk/infrastructure/Main.java` avec le triangle vert à côté de `main`. **Résultat attendu :** dans la fenêtre **Run**, deux lignes de consigne, un échiquier en lettres, le coup du moteur, puis `Votre roi (e5) va en :`.
+6. **Jouez** un coup : tapez la case d’arrivée de votre roi, par exemple `d4`, puis **Entrée**. **Résultat attendu :** le moteur rejoue aussitôt. Un coup illégal est refusé ; `q` abandonne ; pour rejouer, relancez `Main`.
 
-Ouvrez `src/main/java/org/chesskrk/infrastructure/Main.java` et lancez-le avec le triangle vert à côté de `main`. **Résultat attendu :** dans la fenêtre **Run**, un échiquier en lettres et la ligne « Votre roi (e5) va en : ». Vous jouez le roi noir ; le moteur joue les blancs. Tapez la case d’arrivée de votre roi, par exemple `d4`, puis **Entrée**. Un coup illégal est refusé. `q` abandonne la partie. Pour rejouer, relancez `Main`.
+**Terminal, uniquement en secours.** Un terminal est la fenêtre dans laquelle on tape des commandes.
 
-**Terminal, uniquement en secours.** Un terminal est la fenêtre dans laquelle on tape des commandes. Dans IntelliJ IDEA, ouvrez **View > Tool Windows > Terminal** (`Alt+F12` sous Windows). L’invite affiche le dossier courant. Il faut être dans le dossier `TD1`, celui qui contient `pom.xml` et `mvnw.cmd`. Si l’invite se termine par le nom du dépôt, `R304-2026-2027`, tapez `cd TD1` puis **Entrée** ; si elle montre un autre dossier, appelez l’enseignant. Tapez ensuite chaque ligne puis validez par **Entrée** ; la première ligne évite que les accents s’affichent mal :
+1. **Ouvrez** le terminal d’IntelliJ IDEA : **View > Tool Windows > Terminal** (`Alt+F12` sous Windows).
+2. **Vérifiez** que l’invite se termine par `TD1`, le dossier qui contient `pom.xml` et `mvnw.cmd` ; si elle se termine par `R304-2026-2027`, tapez `cd TD1` puis **Entrée** ; sinon, appelez l’enseignant.
+3. **Tapez** les trois lignes ci-dessous, **Entrée** après chacune ; la première évite que les accents s’affichent mal.
 
-```powershell
-chcp 65001
-.\mvnw.cmd -q compile
-java -cp target/classes org.chesskrk.infrastructure.Main
-```
+   ```powershell
+   chcp 65001
+   .\mvnw.cmd -q compile
+   java -cp target/classes org.chesskrk.infrastructure.Main
+   ```
 
-La première utilisation demande Internet pour télécharger les dépendances. Si le démarrage bloque, signalez-le et passez à la lecture : les fichiers se lisent aussi dans un navigateur, à l’adresse `https://github.com/mikalziane/R304-2026-2027/tree/main/TD1/src`, et l’enseignant projette une partie.
+Si le démarrage bloque, signalez-le et passez à la lecture : les fichiers se lisent aussi dans un navigateur, à `https://github.com/mikalziane/R304-2026-2027/tree/main/TD1/src`, et l’enseignant projette une partie.
 
 ## 20–35 min — Jouer et observer
 
-Jouez deux ou trois parties, en changeant de pilote. **Défi : tenez cinquante coups sans vous faire mater.**
+Le moteur part toujours de la position roi blanc e1, tour a1, roi noir e5, les blancs au trait.
 
-Sur votre feuille, notez ce que fait le moteur. Que fait sa tour ? Donne-t-il des échecs ? Laisse-t-il sa tour en prise ? Vous menace-t-il un jour sérieusement de mat ? Puis répondez : ce qui lui manque, est-ce la connaissance des règles (joue-t-il un coup interdit ?) ou le jugement sur les positions ? Justifiez par ce que vous avez vu.
+**Actions**
+
+1. **Jouez** deux ou trois parties, en changeant de pilote. **Défi : tenez cinquante coups sans vous faire mater.**
+2. **Observez** le moteur : que fait sa tour ? donne-t-il des échecs ? laisse-t-il sa tour en prise ? vous menace-t-il un jour sérieusement de mat ?
+
+**Sur la feuille :** vos quatre observations, puis votre réponse à cette question : ce qui manque au moteur, est-ce la connaissance des règles (joue-t-il un coup interdit ?) ou le jugement sur les positions ? Justifiez par ce que vous avez vu.
 
 ## 35–55 min — La carte du moteur et le trajet d’un coup
 
-Tous les chemins suivants sont relatifs à `TD1/src/main/java/org/chesskrk`.
+Tous les chemins sont relatifs à `TD1/src/main/java/org/chesskrk`. Les fichiers `package-info.java` décrivent chaque dossier en une phrase.
 
-1. Dans le panneau **Project** d’IntelliJ, dépliez les quatre dossiers `domain`, `application`, `adapter` et `infrastructure`. Sur votre feuille, dessinez quatre cercles emboîtés, domaine au centre, puis application, adaptateurs, infrastructure, et placez chaque classe dans son cercle à l’aide du tableau des responsabilités. Les fichiers `package-info.java` décrivent chaque dossier en une phrase.
-2. Ouvrez `adapter/console/ConsoleGame.java`. Repérez la méthode `whiteMoves` de ce fichier et la ligne où la console demande un coup au moteur : `engine.chooseMove(position)`. Quel est le **type déclaré** du champ `engine`, c’est-à-dire le type écrit devant son nom dans sa déclaration ? Est-ce une classe ou une **interface** (mot-clé `interface`, méthodes sans corps) ? Le résultat `Optional<Move>` est « un coup, ou rien s’il n’y a aucun coup permis ».
-3. Ouvrez `application/usecase/ChooseBestMoveService.java`. Dans `chooseMove`, suivez ce qui se passe pour un coup : `Rules.legalMoves` donne les coups permis, `Rules.apply` calcule la position après chaque coup, `oracle.evaluate(...)` demande la valeur de cette position, et `min` garde le meilleur. L’écriture `stream()…min(...)` est une façon compacte de parcourir la liste et de garder le plus petit score ; inutile de la détailler. Quelle responsabilité ce fichier exerce-t-il ? Laquelle délègue-t-il, et à qui ?
-4. Ouvrez `application/port/out/EndgameOracle.java` en entier. C’est une interface Java, c’est-à-dire un contrat : des méthodes promises, sans leur code. Ici, c’est le **contrat d’évaluation d’une position**. Il promet une méthode, `evaluate`, qui reçoit une position et rend une `Evaluation` : gain, nulle ou perte pour le camp au trait, et nombre de demi-coups jusqu’au mat (un demi-coup est le coup d’un seul camp). Qui a besoin de ce contrat ? Qui le tient ?
-5. Ouvrez `adapter/naive/NaiveOracle.java`. Le mot `implements` signifie que cette classe tient le contrat d’évaluation d’une position. Lisez `evaluate` : quelles sont ses trois règles de débutant ? Que répond-elle pour toute autre position ? Après un coup des blancs, ce sont les noirs qui sont au trait : l’évaluateur répond de leur point de vue, et ce qui est perdu pour eux est bon pour le moteur. Les nombres 2 et 50 sont des ordres de grandeur, pas un vrai compte de demi-coups. Reliez ces réponses à ce que vous avez observé en jouant.
+**Repères de lecture.** Le **type déclaré** d’un champ est le type écrit devant son nom dans sa déclaration. Une **interface** se reconnaît au mot-clé `interface` : des méthodes promises, sans leur code. `Optional<Move>` se lit « un coup, ou rien s’il n’y a aucun coup permis ». L’écriture `stream()…min(...)` parcourt une liste et garde le plus petit score ; inutile de la détailler. Un **demi-coup** est le coup d’un seul camp. L’évaluateur répond du point de vue du camp au trait ; après un coup des blancs, ce sont les noirs : ce qui est perdu pour eux est bon pour le moteur, et les nombres 2 et 50 sont des ordres de grandeur, pas un vrai compte de demi-coups.
 
-**Trace à conserver :** le trajet d’un coup en quatre lignes, un fichier par ligne, de la console à l’évaluateur naïf. Une autre personne que le pilote l’explique au groupe.
+**Actions**
 
-**Indice de lecture volontaire :** une variable dont le type déclaré est une interface peut désigner un objet de n’importe quelle classe qui l’implémente, comme l’exemple `Tarif` et `TarifFixe` de la présentation. Ce qui est écrit dans le fichier, le type déclaré, et ce qui s’exécute, la classe de l’objet, sont deux choses différentes.
+1. **Dépliez**, dans le panneau **Project** d’IntelliJ, les quatre dossiers `domain`, `application`, `adapter` et `infrastructure`. **Sur la feuille :** quatre cercles emboîtés, domaine au centre, puis application, adaptateurs, infrastructure, et chaque classe dans son cercle, à l’aide du tableau des responsabilités.
+2. **Ouvrez** `adapter/console/ConsoleGame.java` et **repérez**, dans la méthode `whiteMoves` de ce fichier, la ligne `engine.chooseMove(position)`, où la console demande un coup au moteur. **Sur la feuille :** le type déclaré du champ `engine` ; est-ce une classe ou une interface ?
+3. **Ouvrez** `application/usecase/ChooseBestMoveService.java` et **suivez** `chooseMove` pour un coup : `Rules.legalMoves` donne les coups permis, `Rules.apply` calcule la position après chaque coup, `oracle.evaluate(...)` demande la valeur de cette position, et `min` garde le meilleur. **Sur la feuille :** quelle responsabilité ce fichier exerce ; laquelle il délègue, et à qui.
+4. **Ouvrez** `application/port/out/EndgameOracle.java` en entier. C’est une interface Java, c’est-à-dire un contrat, ici le **contrat d’évaluation d’une position** : une méthode `evaluate` qui reçoit une position et rend une `Evaluation`, gain, nulle ou perte pour le camp au trait, et nombre de demi-coups jusqu’au mat. **Sur la feuille :** qui a besoin de ce contrat ; qui le tient.
+5. **Ouvrez** `adapter/naive/NaiveOracle.java` et **lisez** `evaluate` ; le mot `implements` signifie que cette classe tient le contrat d’évaluation d’une position. **Sur la feuille :** ses trois règles de débutant ; ce qu’elle répond pour toute autre position ; le lien avec ce que vous avez observé en jouant.
+6. **Écrivez** le trajet d’un coup en quatre lignes, un fichier par ligne, de la console à l’évaluateur naïf.
+7. **Faites expliquer** ce trajet au groupe par une autre personne que le pilote.
+
+**Indice de lecture volontaire :** une variable dont le type déclaré est une interface peut désigner un objet de n’importe quelle classe qui l’implémente, comme l’exemple `Tarif` et `TarifFixe` de la présentation de l’enseignant. Ce qui est écrit dans le fichier, le type déclaré, et ce qui s’exécute, la classe de l’objet, sont deux choses différentes.
 
 ## 55–70 min — Le graphe de dépendances, et un pari
 
 Une flèche de dépendance va de la classe ou interface qui **utilise un type** vers ce **type utilisé** : type d’un champ, d’un paramètre, d’une variable ou d’un résultat, objet créé avec `new`, ou interface implémentée. On regarde les noms écrits dans le code, pas l’ordre des appels à l’exécution.
 
-Recopiez ces cinq noms et tracez les flèches de dépendance entre eux, en cherchant chaque flèche dans les déclarations Java :
+**Actions**
 
-```text
-[ ConsoleGame ]   [ ChooseBestMoveService ]   [ EndgameOracle ]
+1. **Recopiez** ces cinq noms et **tracez** les flèches de dépendance entre eux, en cherchant chaque flèche dans les déclarations Java ; vous pouvez ignorer les flèches vers le domaine, que tout le monde utilise. **Sur la feuille :** pour chaque flèche, la déclaration qui la justifie.
 
-                  [ NaiveOracle ]   [ RetrogradeTablebase ]
-```
+   ```text
+   [ ConsoleGame ]   [ ChooseBestMoveService ]   [ EndgameOracle ]
 
-1. Pour chaque flèche, relevez la déclaration qui la justifie. Vous pouvez ignorer les flèches vers le domaine, que tout le monde utilise.
-2. `ChooseBestMoveService` et `NaiveOracle` : y a-t-il une flèche entre eux, dans un sens ou dans l’autre ? Comparez avec ce qui se passe à l’exécution, puis expliquez avec l’indice de lecture.
-3. **Le pari.** On veut que le moteur évalue les positions avec `RetrogradeTablebase`, une table qui connaît la valeur exacte de toutes les positions KRK, au lieu de `NaiveOracle`. D’après votre graphe, quels fichiers faudra-t-il modifier, et lesquels resteront intacts ? `ChooseBestMoveService` doit-il changer ? Écrivez votre réponse sur la feuille avant de continuer.
-4. Une fois le pari écrit, ouvrez `infrastructure/Main.java` et ajoutez-le au graphe avec ses flèches. Que remarquez-vous ? Votre pari tient-il toujours ?
+                     [ NaiveOracle ]   [ RetrogradeTablebase ]
+   ```
 
-Faites un point avec l’enseignant avant de continuer. Changez de pilote. La section suivante est repliée : ne l’ouvrez qu’après ce point.
+2. **Comparez** `ChooseBestMoveService` et `NaiveOracle` : y a-t-il une flèche entre eux, dans un sens ou dans l’autre ? Et à l’exécution ? **Sur la feuille :** votre explication, avec l’indice de lecture.
+3. **Pariez.** On veut que le moteur évalue les positions avec `RetrogradeTablebase`, une table qui connaît la valeur exacte de toutes les positions KRK, au lieu de `NaiveOracle`. **Sur la feuille, avant de continuer :** d’après votre graphe, quels fichiers faudra-t-il modifier, lesquels resteront intacts, et `ChooseBestMoveService` doit-il changer ?
+4. **Ouvrez** `infrastructure/Main.java`, une fois le pari écrit, et **ajoutez-le** au graphe avec ses flèches. **Sur la feuille :** ce que vous remarquez ; votre pari tient-il toujours ?
+
+**Faites un point avec l’enseignant** avant de continuer, et changez de pilote. La section suivante est repliée : ne l’ouvrez qu’après ce point.
 
 ## 70–85 min — Le verdict du pari
 
 <details>
 <summary>À ouvrir après le point avec l’enseignant</summary>
 
-Dans `infrastructure/Main.java`, méthode `buildUseCase`, remplacez la ligne
+**Actions**
 
-```java
-EndgameOracle oracle = new NaiveOracle();
-```
+1. **Remplacez**, dans `infrastructure/Main.java`, méthode `buildUseCase`, la ligne
 
-par
+   ```java
+   EndgameOracle oracle = new NaiveOracle();
+   ```
 
-```java
-EndgameOracle oracle = RetrogradeTablebase.build();
-```
+   par
 
-IntelliJ souligne `RetrogradeTablebase` en rouge : placez le curseur dessus, appuyez sur `Alt+Entrée` et choisissez **Import class**. L’import de `NaiveOracle` devient inutile et apparaît en gris ; vous pouvez le laisser ou le supprimer. Relancez `Main` et rejouez. Le calcul de la table prend une seconde au démarrage.
+   ```java
+   EndgameOracle oracle = RetrogradeTablebase.build();
+   ```
 
-1. Combien de coups avez-vous tenu cette fois ? Le moteur fait-il encore des échecs sans suite ?
-2. Comparez avec votre pari : combien de fichiers ont changé ? Combien de lignes ? Votre graphe a-t-il changé ?
-3. À l’exécution, quel objet reçoit maintenant l’appel `oracle.evaluate(...)` ? Le nom de sa classe apparaît-il dans `ChooseBestMoveService.java` ? Montrez le code.
+2. **Importez** la classe : IntelliJ souligne `RetrogradeTablebase` en rouge ; curseur dessus, `Alt+Entrée`, **Import class**. L’import de `NaiveOracle` devient inutile et apparaît en gris ; laissez-le ou supprimez-le.
+3. **Relancez** `Main` et **rejouez**. Le calcul de la table prend une seconde au démarrage.
 
-Si vous avez le temps, lancez les tests : clic droit sur le dossier `src/test/java`, **Run 'All Tests'**. **Résultat attendu : 41 tests réussis.** Parmi eux, `CleanArchitectureTest` vérifie automatiquement la règle des couches : si une classe du choix nommait la console ou la table, ce test échouerait.
+**Résultat attendu :** depuis la position de départ, le moteur mate en quatorze coups au plus.
+
+**Sur la feuille :**
+
+1. combien de coups vous avez tenu cette fois, et si le moteur fait encore des échecs sans suite ;
+2. combien de fichiers et combien de lignes ont changé, comparés à votre pari, et si votre graphe a changé ;
+3. quel objet reçoit maintenant l’appel `oracle.evaluate(...)`, et si le nom de sa classe apparaît dans `ChooseBestMoveService.java` ; montrez le code.
+
+**Si vous avez le temps.** **Lancez** les tests : clic droit sur le dossier `src/test/java`, **Run 'All Tests'**. **Résultat attendu :** 41 tests réussis. Parmi eux, `CleanArchitectureTest` vérifie automatiquement la règle des couches : si une classe du choix nommait la console ou la table, ce test échouerait.
 
 </details>
 
 ## 85–90 min — Bilan et préparation de la suite
 
-Sur votre feuille, répondez brièvement :
+**Sur la feuille**, en une ligne chacune :
 
-1. Qu’est-ce qui a rendu le moteur imbattable : un changement des règles, du choix, de l’évaluation, ou de l’assemblage ?
-2. Pourquoi une seule ligne a-t-elle suffi ? Répondez avec les mots « contrat d’évaluation » et « interface ».
-3. Si demain on écrivait une troisième façon d’évaluer, quels fichiers changeraient ?
+1. ce qui a rendu le moteur imbattable : un changement des règles, du choix, de l’évaluation, ou de l’assemblage ;
+2. pourquoi une seule ligne a suffi, avec les mots « contrat d’évaluation d’une position » et « interface » ;
+3. quels fichiers changeraient si demain on écrivait une troisième façon d’évaluer.
 
-Gardez vos réponses, la trace du coup et le graphe pour la prochaine séance. Chacun doit pouvoir expliquer une flèche, sans soutenance individuelle. Au TD suivant, le code fourni aura un défaut de ce genre, une classe qui connaît ce qu’elle ne devrait pas, et vous le ferez disparaître.
+**Conservez** la feuille de groupe, avec le trajet du coup et le graphe de dépendances : le TD2 repart de là. Chacun doit pouvoir expliquer une flèche, sans soutenance individuelle. Au TD suivant, le code fourni aura un défaut de ce genre, une classe qui connaît ce qu’elle ne devrait pas, et vous le ferez disparaître.
 
-**Si le temps manque :** jouez une seule partie, faites le trajet du coup et le pari avec l’enseignant, puis la ligne de `Main`. Les questions de bilan peuvent être discutées collectivement ; aucun travail supplémentaire à domicile n’est imposé.
+**Si le temps manque :** une seule partie, le trajet du coup et le pari avec l’enseignant, puis la ligne de `Main`. Le bilan peut être discuté collectivement ; aucun travail à domicile n’est imposé.
