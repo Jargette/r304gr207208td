@@ -124,7 +124,7 @@ Tous les chemins sont relatifs à `TD1/src/main/java/org/chesskrk`. Les fichiers
 
 **Indice de lecture volontaire :** une variable dont le type déclaré est une interface peut désigner un objet de n’importe quelle classe qui l’implémente, comme l’exemple `Tarif` et `TarifFixe` de la présentation de l’enseignant. Ce qui est écrit dans le fichier, le type déclaré, et ce qui s’exécute, la classe de l’objet, sont deux choses différentes.
 
-## 55–70 min — Le graphe de dépendances, et un pari
+## 55–70 min — Le graphe de dépendances, et l’impact d’un changement
 
 Une flèche de dépendance va de la classe ou interface qui **utilise un type** vers ce **type utilisé** : type d’un champ, d’un paramètre, d’une variable ou d’un résultat, objet créé avec `new`, ou interface implémentée. On regarde les noms écrits dans le code, pas l’ordre des appels à l’exécution.
 
@@ -139,12 +139,20 @@ Une flèche de dépendance va de la classe ou interface qui **utilise un type** 
    ```
 
 2. **Comparez** `ChooseBestMoveService` et `NaiveOracle` : y a-t-il une flèche entre eux, dans un sens ou dans l’autre ? Et à l’exécution ? **Sur la feuille :** votre explication, avec l’indice de lecture.
-3. **Pariez.** On veut que le moteur évalue les positions avec `RetrogradeTablebase`, une table qui connaît la valeur exacte de toutes les positions KRK, au lieu de `NaiveOracle`. **Sur la feuille, avant de continuer :** d’après votre graphe, quels fichiers faudra-t-il modifier, lesquels resteront intacts, et `ChooseBestMoveService` doit-il changer ?
-4. **Ouvrez** `infrastructure/Main.java`, une fois le pari écrit, et **ajoutez-le** au graphe avec ses flèches. **Sur la feuille :** ce que vous remarquez ; votre pari tient-il toujours ?
+3. **Estimez** l’impact d’un changement, d’après votre graphe. Le changement : on veut que le moteur évalue les positions avec `RetrogradeTablebase`, une table qui connaît la valeur exacte de toutes les positions KRK, au lieu de `NaiveOracle`. **Sur la feuille, avant de continuer :** quels fichiers devront être modifiés, lesquels resteront intacts, et `ChooseBestMoveService` doit-il changer ?
+4. **Ouvrez** `infrastructure/Main.java`, une fois l’estimation écrite, et **ajoutez-le** au graphe avec ses flèches. **Sur la feuille :** ce que vous remarquez ; votre estimation tient-elle toujours ?
+
+> **Indice volontaire : comment estimer l’impact d’un changement.** Ce n’est pas si simple, et c’est la compétence de tout le parcours.
+>
+> 1. Nommez précisément ce qui change, et ce qui le remplace.
+> 2. Dans le graphe, cherchez toutes les flèches qui **arrivent** sur ce qui change. Chaque fichier d’où part une telle flèche écrit le nom de ce qui change : il devra être relu, et sans doute modifié.
+> 3. Si ce qui change est un contrat, une interface, remontez encore : tout ce qui pointe vers ce contrat est touché à son tour. Si le contrat ne change pas, l’impact s’arrête là.
+> 4. Ajoutez le fichier qui devra écrire le nom de ce qui remplace : quelqu’un doit créer le nouvel objet.
+> 5. Ce qui n’a aucune flèche vers ce qui change reste intact, même si, à l’exécution, il l’appelle.
 
 **Faites un point avec l’enseignant** avant de continuer, et changez de pilote. La section suivante est repliée : ne l’ouvrez qu’après ce point.
 
-## 70–85 min — Le verdict du pari
+## 70–85 min — Faire le changement, vérifier l’impact
 
 <details>
 <summary>À ouvrir après le point avec l’enseignant</summary>
@@ -171,7 +179,7 @@ Une flèche de dépendance va de la classe ou interface qui **utilise un type** 
 **Sur la feuille :**
 
 1. combien de coups vous avez tenu cette fois, et si le moteur fait encore des échecs sans suite ;
-2. combien de fichiers et combien de lignes ont changé, comparés à votre pari, et si votre graphe a changé ;
+2. combien de fichiers et combien de lignes ont changé, comparés à votre estimation, et si votre graphe a changé ;
 3. quel objet reçoit maintenant l’appel `oracle.evaluate(...)`, et si le nom de sa classe apparaît dans `ChooseBestMoveService.java` ; montrez le code.
 
 **Si vous avez le temps.** **Lancez** les tests : clic droit sur le dossier `src/test/java`, **Run 'All Tests'**. **Résultat attendu :** 41 tests réussis. Parmi eux, `CleanArchitectureTest` vérifie automatiquement la règle des couches : si une classe du choix nommait la console ou la table, ce test échouerait.
@@ -188,4 +196,4 @@ Une flèche de dépendance va de la classe ou interface qui **utilise un type** 
 
 **Conservez** la feuille de groupe, avec le trajet du coup et le graphe de dépendances : le TD2 repart de là. Chacun doit pouvoir expliquer une flèche, sans soutenance individuelle. Au TD suivant, le code fourni aura un défaut de ce genre, une classe qui connaît ce qu’elle ne devrait pas, et vous le ferez disparaître.
 
-**Si le temps manque :** une seule partie, le trajet du coup et le pari avec l’enseignant, puis la ligne de `Main`. Le bilan peut être discuté collectivement ; aucun travail à domicile n’est imposé.
+**Si le temps manque :** une seule partie, le trajet du coup et l’estimation de l’impact avec l’enseignant, puis la ligne de `Main`. Le bilan peut être discuté collectivement ; aucun travail à domicile n’est imposé.
