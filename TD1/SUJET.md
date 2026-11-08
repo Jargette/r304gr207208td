@@ -106,7 +106,7 @@ Le moteur part toujours de la position roi blanc e1, tour a1, roi noir e5, les b
 
 **Sur la feuille :** vos quatre observations, puis votre réponse à cette question : ce qui manque au moteur, est-ce la connaissance des règles (joue-t-il un coup interdit ?) ou le jugement sur les positions ? Justifiez par ce que vous avez vu.
 
-## 35–55 min — La carte du moteur et le trajet d’un coup
+## 35–55 min — Les classes par couche et le trajet d’un coup
 
 Tous les chemins sont relatifs à `TD1/src/main/java/org/chesskrk`. Les fichiers `package-info.java` décrivent chaque dossier en une phrase.
 
