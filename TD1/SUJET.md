@@ -62,7 +62,7 @@ Entre deux responsabilités passe une **frontière** ; une seule nous occupe auj
 
 ## 0–20 min — Présentation et ouverture du projet
 
-Un membre ouvre le projet pendant la présentation de l’enseignant ; les autres l’écoutent. Alternez ensuite les rôles de lecteur, pilote du clavier et rédacteur.
+Ouvrez le projet sur un portable du groupe pendant la présentation de l’enseignant ; les autres écoutent. Alternez ensuite les rôles de lecteur, pilote du clavier et rédacteur.
 
 Le dépôt public est [mikalziane/R304-2026-2027](https://github.com/mikalziane/R304-2026-2027). Dans IntelliJ IDEA, choisissez **Get from VCS** (ou **Clone Repository** selon la version) sur l’écran d’accueil, puis saisissez l’URL `https://github.com/mikalziane/R304-2026-2027.git` dans le champ **URL**. Choisissez votre dossier personnel sur votre portable ; sur un poste IUT, utilisez votre espace personnel sur `Z:`. Si vous avez déjà récupéré le dépôt en TP1, ne clonez pas à nouveau : ouvrez ce clone (**File > Open** sur son dossier) et mettez-le à jour avec **Git > Update Project** (`Ctrl+T`), ou `git pull` dans le terminal. Le dossier `TD1/src/main/java/org/chesskrk` doit contenir les dossiers `domain`, `application`, `adapter` et `infrastructure` ; sinon, appelez l’enseignant.
 
